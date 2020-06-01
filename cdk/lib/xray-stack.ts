@@ -70,7 +70,7 @@ export class XRayStack extends cdk.Stack {
       description: "An AWS Lambda function that will process all new questions posted to mythical mysfits" +
         " and notify the site administrator of the question that was asked.",
       memorySize: 128,
-      code: lambda.Code.asset("../lambda/ProcessQuestionsStream"),
+      code: lambda.Code.asset("../lambda/ProcessQuestionsStream/bin/Debug/netcoreapp2.1/publish"),
       timeout: cdk.Duration.seconds(30),
       initialPolicy: [
         postQuestionLambdaFunctionPolicyStmSNS,
