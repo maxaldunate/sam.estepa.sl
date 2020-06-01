@@ -20,14 +20,15 @@
 ## CDK Dependency Tree
 
 * Independent Stacks
-    1. Frontend
-    2. XRay
-    3. Cognito
-    4. DevTools
-    5. Network
-    6. ECR
+        1. Frontend
+        2. XRay
+        3. Cognito
+        4. DevTools
+        5. Network
+        6. ECR
 
 * Stack with their dependencies
+
     7. ECS
         Network.vpc,
         ECR.ecrRepository
