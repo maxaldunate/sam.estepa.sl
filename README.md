@@ -30,6 +30,11 @@ Max Aldunate
     - `npm run build`
     - `cd ~/cdk && npm run build`
     - `cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-Frontend`
+## Deploy Lambdas
+    - streaming_lambda `cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-KinesisFirehose`
+    - PostQuestionsService `cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-XRay`
+    - ProcessQuestionsStream `XRay. Same as previous lambda function`
+
 
 ```
     docker build . -t 085693846076.dkr.ecr.eu-west-1.amazonaws.com/estepadev/service:latest
