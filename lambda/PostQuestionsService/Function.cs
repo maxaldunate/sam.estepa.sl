@@ -18,7 +18,7 @@ namespace PostQuestionsService
         private static AmazonDynamoDBClient client = new AmazonDynamoDBClient();
         public async System.Threading.Tasks.Task<APIGatewayProxyResponse> FunctionHandlerAsync(APIGatewayProxyRequest apigProxyEvent, ILambdaContext context)
         {
-            Console.WriteLine($"Processing request data for request {apigProxyEvent.RequestContext.RequestId}.");
+            Console.WriteLine($"MAAAAAAAAAAX Processing request data for request {apigProxyEvent.RequestContext.RequestId}.");
             var data = JsonConvert.DeserializeObject<Question>(apigProxyEvent.Body);
             Question question = new Question();
             question.Id = Guid.NewGuid().ToString();
