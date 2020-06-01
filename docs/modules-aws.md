@@ -1,6 +1,15 @@
 # Sam Estepa Serverless
 Max Aldunate - Notes on Windows 10
 
+## Contents
+* [Module 1 - IDE Setup and Static Website Hosting](#module-1---IDE-Setup-and-Static-Website-Hosting)
+* [Module 2 - Creating a Service with AWS Fargate](#Module-2---Creating-a-Service-with-AWS-Fargate)
+* [Module 3 - Adding a Data Tier with Amazon DynamoDB](#Module-3---Adding-a-Data-Tier-with-Amazon-DynamoDB)
+* [Module 4 - Adding User and API Features with Amazon API Gateway and AWS Cognito](#Module-4---Adding-User-and-API-Features-with-Amazon-API-Gateway-and-AWS-Cognito)
+* [Module 5 - Capturing User Behavior](#Module-5---Capturing-User-Behavior)
+* [Module 6 - Tracing Application Requests](#Module-6---Tracing-Application-Requests)
+
+
 ## Module 1 - IDE Setup and Static Website Hosting
 
 ### Frontend dist
