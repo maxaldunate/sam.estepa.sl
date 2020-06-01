@@ -6,6 +6,7 @@
 * [CDK Dependency Tree](#cdk-dependency-tree)
 * [CDK Creation](#cdk-creation)
 * [Destroy all resources](#destroy-all-resources)
+* [Not Destroyed Resources](#not-destroyed-resources)
 
 ## Useful commands
 
@@ -52,13 +53,13 @@ cdk destroy --profile samsoftware-estepa --require-approval never EstepaDev-STAC
     - C:\Users\wille\.ssh\config
     - Push ssh-key codecommit_rda to IAM/Users/git-user/Upload SSh public key
     - Add profile to AWS CLI
-```
+    - Remove Root User Credentials
+```bash
         aws configure --profile samsoftware-estepa
         aws configure --profile samsoftware-git
         C:\Users\user_name\.aws\config
         C:\Users\user_name\.aws\credentials
 ```
-    - Remove Root User Credentials
 
 2. Deploy CDK Tool Kit and independent stacks: Frontend, XRay, Cognito, DevTools, Network & ECR
 ```
@@ -67,14 +68,18 @@ cdk bootstrap --profile samsoftware-estepa
         cdktoolkit-stagingbucket-kojjbsgyuii5
     aws cloudformation describe-stacks --profile samsoftware-estepa --stack-name CDKToolkit --query "Stacks[0].Outputs[?OutputKey=='BucketDomainName'].OutputValue" --output text
         cdktoolkit-stagingbucket-kojjbsgyuii5.s3.eu-west-1.amazonaws.com
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-Frontend
     Outputs:
     EstepaDev-Frontend.CloudFrontURL = http://dk5h77d8loqzp.cloudfront.net
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-XRay
     Outputs:
     EstepaDev-XRay.APIEndpoint87847821 = https://wbrfhak3b4.execute-api.eu-west-1.amazonaws.com/prod/
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-Cognito
     No Outputs
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-DevTools
     Outputs:
     EstepaDev-DevTools.APIRepositoryCloneUrlSsh = ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/085693846076-EstepaDevService-Repository-Webapi
@@ -82,6 +87,7 @@ cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-DevTo
     EstepaDev-DevTools.CDKRepositoryCloneUrlSsh = ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/085693846076-EstepaDevService-Repository-CDK
     EstepaDev-DevTools.WebRepositoryCloneUrlSsh = ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/085693846076-EstepaDevService-Repository-Frontend
     EstepaDev-DevTools.ExportsOutputFnGetAttAPIRepository40476B48ArnA6DB1E5D = arn:aws:codecommit:eu-west-1:085693846076:085693846076-EstepaDevService-Repository-Webapi
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-Network
     Outputs:
     EstepaDev-Network.ExportsOutputRefVPCB9E5F0B4BD23A326 = vpc-0744eae34fd40039b
@@ -90,6 +96,7 @@ cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-Netwo
     EstepaDev-Network.ExportsOutputRefVPCPublicSubnet1SubnetB4246D30D84F935B = subnet-0f585c19ccc9f58ba
     EstepaDev-Network.ExportsOutputRefVPCPrivateSubnet1Subnet8BCA10E01F79A1B7 = subnet-0255fc4d442d16cda
     EstepaDev-Network.ExportsOutputRefVPCPublicSubnet2Subnet74179F3969CC10AD = subnet-0055320b809b1ef4c
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-ECR
     Outputs:
     EstepaDev-ECR.ExportsOutputRefRepository22E53BBD9A9E013B = estepadev/service
@@ -97,8 +104,8 @@ cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-ECR
 ```
 
 3. Push code to Git Repos on CodeCommit with git-user
-    [Setup Steps for SSH Connections to AWS CodeCommit Repositories on Windows](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-windows.html)
-    [Migrate a Git Repository to AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-migrate-repository-existing.html)
+    - [Setup Steps for SSH Connections to AWS CodeCommit Repositories on Windows](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-windows.html)
+    - [Migrate a Git Repository to AWS CodeCommit](https://docs.aws.amazon.com/codecommit/latest/userguide/how-to-migrate-repository-existing.html)
     ```
     \cdk>      git push --all ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/085693846076-EstepaDevService-Repository-CDK
     \webapi>   git push --all ssh://git-codecommit.eu-west-1.amazonaws.com/v1/repos/085693846076-EstepaDevService-Repository-Webapi
@@ -108,8 +115,8 @@ cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-ECR
 
 4. Push Docker Image
     - In C:\Users\wille\.aws\credentials remove toolkit_artifact_guid
-    * In Folder \webapi>
     ```
+    cd ~\webapi
     aws sts get-caller-identity --query Account --output text --profile samsoftware-estepa
         085693846076
     aws configure get region --profile samsoftware-estepa
@@ -134,16 +141,20 @@ cdk deploy EstepaDev-ECS             --profile samsoftware-estepa --require-appr
     EstepaDev-ECS.ExportsOutputRefServiceLBE9A1ADBC8915B274 = arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/Estep-Servi-195O26F1ZHFC1/cb324d4be6285e6d
     EstepaDev-ECS.ExportsOutputRefClusterEB0386A796A0E3FE = EstepaDev-ECS-ClusterEB0386A7-X7zm24YdzDKs
     EstepaDev-ECS.ServiceLoadBalancerDNSEC5B149E = Estep-Servi-195O26F1ZHFC1-cb324d4be6285e6d.elb.eu-west-1.amazonaws.com
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-DynamoDB
     Outputs:
     EstepaDev-DynamoDB.ExportsOutputFnGetAttTableCD117FA1ArnE2C8C204 = arn:aws:dynamodb:eu-west-1:085693846076:table/MysfitsTable
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-APIGateway
     Outputs:
     EstepaDev-APIGateway.ExportsOutputRefSchema2070DD45 = fma29g1jh9
     EstepaDev-APIGateway.APIID = fma29g1jh9
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-KinesisFirehose
     Outputs:
     EstepaDev-KinesisFirehose.APIEndpoint87847821 = https://pya3zcp8a2.execute-api.eu-west-1.amazonaws.com/prod/
+
 cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-CICD
     No Outputs
 ```
@@ -178,7 +189,7 @@ aws dynamodb scan --table-name MysfitsTable --profile samsoftware-estepa
     ```
 
 * In File "/frontend/src/environments/environment.prod.ts"
-    CON O SIN API AL FINAL           https://fma29g1jh9.execute-api.eu-west-1.amazonaws.com/prod/api???
+    - CON O SIN API AL FINAL           https://fma29g1jh9.execute-api.eu-west-1.amazonaws.com/prod/api???
     ```
     {
         mysfitsApiUrl:              'https://fma29g1jh9.execute-api.eu-west-1.amazonaws.com/prod',
@@ -187,7 +198,7 @@ aws dynamodb scan --table-name MysfitsTable --profile samsoftware-estepa
     ```
 
 * In File "/frontend/index.html"
-    CON O SIN API AL FINAL      https://fma29g1jh9.execute-api.eu-west-1.amazonaws.com/prod/api???
+    - CON O SIN API AL FINAL      https://fma29g1jh9.execute-api.eu-west-1.amazonaws.com/prod/api???
     ```
     var mysfitsApiEndpoint   = 'https://fma29g1jh9.execute-api.eu-west-1.amazonaws.com/prod/api';
     
@@ -246,12 +257,12 @@ cdk destroy EstepaDev-Network --require-approval never --profile samsoftware-est
 
 ### Destroy CDKToolkit
 * Get Bucket Name
-`aws cloudformation describe-stack-resources --stack-name CDKToolkit --profile samsoftware-estepa`
+    - `aws cloudformation describe-stack-resources --stack-name CDKToolkit --profile samsoftware-estepa`
 * Empty bucket before destroy stack
-`aws s3 rm s3://bucket-name --recursive --profile samsoftware-estepa`
-`aws s3 rm s3://cdktoolkit-stagingbucket-opndhwgmnw42 --recursive --profile samsoftware-estepa`
+    - `aws s3 rm s3://bucket-name --recursive --profile samsoftware-estepa`
+    - `aws s3 rm s3://cdktoolkit-stagingbucket-opndhwgmnw42 --recursive --profile samsoftware-estepa`
 * Delete stack & resources
-`aws cloudformation delete-stack --stack-name CDKToolkit --profile samsoftware-estepa`
+    - `aws cloudformation delete-stack --stack-name CDKToolkit --profile samsoftware-estepa`
 
 ### Web Api Load Balancer endpoint
 ```
