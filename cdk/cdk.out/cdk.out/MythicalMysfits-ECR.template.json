@@ -1,0 +1,46 @@
+{
+  "Resources": {
+    "Repository22E53BBD": {
+      "Type": "AWS::ECR::Repository",
+      "Properties": {
+        "RepositoryName": "mythicalmysfits/service",
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "Ecr"
+          }
+        ]
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "MythicalMysfits-ECR/Repository/Resource"
+      }
+    }
+  },
+  "Outputs": {
+    "ExportsOutputFnGetAttRepository22E53BBDArn3AD4E30B": {
+      "Value": {
+        "Fn::GetAtt": [
+          "Repository22E53BBD",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "MythicalMysfits-ECR:ExportsOutputFnGetAttRepository22E53BBDArn3AD4E30B"
+      }
+    },
+    "ExportsOutputRefRepository22E53BBD9A9E013B": {
+      "Value": {
+        "Ref": "Repository22E53BBD"
+      },
+      "Export": {
+        "Name": "MythicalMysfits-ECR:ExportsOutputRefRepository22E53BBD9A9E013B"
+      }
+    }
+  }
+}

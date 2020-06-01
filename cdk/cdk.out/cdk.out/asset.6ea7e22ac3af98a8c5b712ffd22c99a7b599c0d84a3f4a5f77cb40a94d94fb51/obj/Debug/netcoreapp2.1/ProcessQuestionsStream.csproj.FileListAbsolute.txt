@@ -1,0 +1,12 @@
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\bin\Debug\netcoreapp2.1\ProcessQuestionsStream.deps.json
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\bin\Debug\netcoreapp2.1\ProcessQuestionsStream.runtimeconfig.json
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\bin\Debug\netcoreapp2.1\ProcessQuestionsStream.runtimeconfig.dev.json
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\bin\Debug\netcoreapp2.1\ProcessQuestionsStream.dll
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\bin\Debug\netcoreapp2.1\ProcessQuestionsStream.pdb
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\obj\Debug\netcoreapp2.1\ProcessQuestionsStream.csprojAssemblyReference.cache
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\obj\Debug\netcoreapp2.1\ProcessQuestionsStream.csproj.CoreCompileInputs.cache
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\obj\Debug\netcoreapp2.1\ProcessQuestionsStream.AssemblyInfoInputs.cache
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\obj\Debug\netcoreapp2.1\ProcessQuestionsStream.AssemblyInfo.cs
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\obj\Debug\netcoreapp2.1\ProcessQuestionsStream.dll
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\obj\Debug\netcoreapp2.1\ProcessQuestionsStream.pdb
+C:\git\olds_max\sam.estepa.serverless\lambda\ProcessQuestionsStream\obj\Debug\netcoreapp2.1\ProcessQuestionsStream.genruntimeconfig.cache

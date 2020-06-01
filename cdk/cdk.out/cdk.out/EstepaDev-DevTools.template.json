@@ -1,0 +1,111 @@
+{
+  "Resources": {
+    "APIRepository40476B48": {
+      "Type": "AWS::CodeCommit::Repository",
+      "Properties": {
+        "RepositoryName": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "AWS::AccountId"
+              },
+              "-EstepaDevService-Repository-Webapi"
+            ]
+          ]
+        },
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "DevTools"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-DevTools/APIRepository/Resource"
+      }
+    },
+    "LambdaRepositoryBB8AA214": {
+      "Type": "AWS::CodeCommit::Repository",
+      "Properties": {
+        "RepositoryName": {
+          "Fn::Join": [
+            "",
+            [
+              {
+                "Ref": "AWS::AccountId"
+              },
+              "-EstepaDevService-Repository-Lambda"
+            ]
+          ]
+        },
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "DevTools"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-DevTools/LambdaRepository/Resource"
+      }
+    }
+  },
+  "Outputs": {
+    "APIRepositoryCloneUrlHttp": {
+      "Description": "API Repository CloneUrl HTTP",
+      "Value": {
+        "Fn::GetAtt": [
+          "APIRepository40476B48",
+          "CloneUrlHttp"
+        ]
+      }
+    },
+    "APIRepositoryCloneUrlSsh": {
+      "Description": "API Repository CloneUrl SSH",
+      "Value": {
+        "Fn::GetAtt": [
+          "APIRepository40476B48",
+          "CloneUrlSsh"
+        ]
+      }
+    },
+    "lambdaRepositoryCloneUrlHttp": {
+      "Description": "Lambda Repository Clone Url HTTP",
+      "Value": {
+        "Fn::GetAtt": [
+          "LambdaRepositoryBB8AA214",
+          "CloneUrlHttp"
+        ]
+      }
+    },
+    "lambdaRepositoryCloneUrlSsh": {
+      "Description": "Lambda Repository Clone Url SSH",
+      "Value": {
+        "Fn::GetAtt": [
+          "LambdaRepositoryBB8AA214",
+          "CloneUrlSsh"
+        ]
+      }
+    },
+    "ExportsOutputFnGetAttAPIRepository40476B48ArnA6DB1E5D": {
+      "Value": {
+        "Fn::GetAtt": [
+          "APIRepository40476B48",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "EstepaDev-DevTools:ExportsOutputFnGetAttAPIRepository40476B48ArnA6DB1E5D"
+      }
+    }
+  }
+}

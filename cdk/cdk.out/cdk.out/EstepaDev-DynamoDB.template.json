@@ -1,0 +1,104 @@
+{
+  "Resources": {
+    "TableCD117FA1": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "MysfitId",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "MysfitId",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "LawChaos",
+            "AttributeType": "S"
+          },
+          {
+            "AttributeName": "GoodEvil",
+            "AttributeType": "S"
+          }
+        ],
+        "GlobalSecondaryIndexes": [
+          {
+            "IndexName": "LawChaosIndex",
+            "KeySchema": [
+              {
+                "AttributeName": "LawChaos",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "MysfitId",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          },
+          {
+            "IndexName": "GoodEvilIndex",
+            "KeySchema": [
+              {
+                "AttributeName": "GoodEvil",
+                "KeyType": "HASH"
+              },
+              {
+                "AttributeName": "MysfitId",
+                "KeyType": "RANGE"
+              }
+            ],
+            "Projection": {
+              "ProjectionType": "ALL"
+            },
+            "ProvisionedThroughput": {
+              "ReadCapacityUnits": 5,
+              "WriteCapacityUnits": 5
+            }
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "TableName": "MysfitsTable",
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "DynamoDb"
+          }
+        ]
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-DynamoDB/Table/Resource"
+      }
+    }
+  },
+  "Outputs": {
+    "ExportsOutputFnGetAttTableCD117FA1ArnE2C8C204": {
+      "Value": {
+        "Fn::GetAtt": [
+          "TableCD117FA1",
+          "Arn"
+        ]
+      },
+      "Export": {
+        "Name": "EstepaDev-DynamoDB:ExportsOutputFnGetAttTableCD117FA1ArnE2C8C204"
+      }
+    }
+  }
+}

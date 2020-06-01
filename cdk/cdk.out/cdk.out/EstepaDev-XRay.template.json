@@ -1,0 +1,918 @@
+{
+  "Resources": {
+    "TableCD117FA1": {
+      "Type": "AWS::DynamoDB::Table",
+      "Properties": {
+        "KeySchema": [
+          {
+            "AttributeName": "QuestionId",
+            "KeyType": "HASH"
+          }
+        ],
+        "AttributeDefinitions": [
+          {
+            "AttributeName": "QuestionId",
+            "AttributeType": "S"
+          }
+        ],
+        "ProvisionedThroughput": {
+          "ReadCapacityUnits": 5,
+          "WriteCapacityUnits": 5
+        },
+        "StreamSpecification": {
+          "StreamViewType": "NEW_IMAGE"
+        },
+        "TableName": "MysfitsQuestionsTable",
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ]
+      },
+      "UpdateReplacePolicy": "Retain",
+      "DeletionPolicy": "Retain",
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/Table/Resource"
+      }
+    },
+    "PostQuestionFunctionServiceRoleFAAB4072": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/PostQuestionFunction/ServiceRole/Resource"
+      }
+    },
+    "PostQuestionFunctionServiceRoleDefaultPolicy81B62A2C": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "dynamodb:PutItem",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "TableCD117FA1",
+                  "Arn"
+                ]
+              }
+            },
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "PostQuestionFunctionServiceRoleDefaultPolicy81B62A2C",
+        "Roles": [
+          {
+            "Ref": "PostQuestionFunctionServiceRoleFAAB4072"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/PostQuestionFunction/ServiceRole/DefaultPolicy/Resource"
+      }
+    },
+    "PostQuestionFunctionE452A8D1": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParametersd8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203fS3BucketCF045648"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersd8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203fS3VersionKey910D77B4"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParametersd8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203fS3VersionKey910D77B4"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Handler": "PostQuestionsService::PostQuestionsService.Function::FunctionHandlerAsync",
+        "Role": {
+          "Fn::GetAtt": [
+            "PostQuestionFunctionServiceRoleFAAB4072",
+            "Arn"
+          ]
+        },
+        "Runtime": "dotnetcore2.1",
+        "Description": "A microservice Lambda function that receives a new question submitted to the EstepaDev website from a user and inserts it into a DynamoDB database table.",
+        "MemorySize": 128,
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ],
+        "Timeout": 30,
+        "TracingConfig": {
+          "Mode": "Active"
+        }
+      },
+      "DependsOn": [
+        "PostQuestionFunctionServiceRoleDefaultPolicy81B62A2C",
+        "PostQuestionFunctionServiceRoleFAAB4072"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/PostQuestionFunction/Resource",
+        "aws:asset:path": "asset.d8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203f",
+        "aws:asset:property": "Code"
+      }
+    },
+    "TopicBFC7AF6E": {
+      "Type": "AWS::SNS::Topic",
+      "Properties": {
+        "DisplayName": "EstepaDevQuestionsTopic",
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ],
+        "TopicName": "EstepaDevQuestionsTopic"
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/Topic/Resource"
+      }
+    },
+    "Topicmaxaldunategmailcom3D54ED9B": {
+      "Type": "AWS::SNS::Subscription",
+      "Properties": {
+        "Protocol": "email",
+        "TopicArn": {
+          "Ref": "TopicBFC7AF6E"
+        },
+        "Endpoint": "maxaldunate@gmail.com"
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/Topic/maxaldunate@gmail.com/Resource"
+      }
+    },
+    "ProcessQuestionStreamFunctionServiceRole16072DCC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "lambda.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
+              ]
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/ProcessQuestionStreamFunction/ServiceRole/Resource"
+      }
+    },
+    "ProcessQuestionStreamFunctionServiceRoleDefaultPolicy1918F927": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sns:Publish",
+              "Effect": "Allow",
+              "Resource": {
+                "Ref": "TopicBFC7AF6E"
+              }
+            },
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords",
+                "xray:GetSamplingRules",
+                "xray:GetSamplingTargets",
+                "xray:GetSamplingStatisticSummaries"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": [
+                "xray:PutTraceSegments",
+                "xray:PutTelemetryRecords"
+              ],
+              "Effect": "Allow",
+              "Resource": "*"
+            },
+            {
+              "Action": "dynamodb:ListStreams",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::Join": [
+                  "",
+                  [
+                    {
+                      "Fn::GetAtt": [
+                        "TableCD117FA1",
+                        "Arn"
+                      ]
+                    },
+                    "/stream/*"
+                  ]
+                ]
+              }
+            },
+            {
+              "Action": [
+                "dynamodb:DescribeStream",
+                "dynamodb:GetRecords",
+                "dynamodb:GetShardIterator"
+              ],
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "TableCD117FA1",
+                  "StreamArn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "ProcessQuestionStreamFunctionServiceRoleDefaultPolicy1918F927",
+        "Roles": [
+          {
+            "Ref": "ProcessQuestionStreamFunctionServiceRole16072DCC"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/ProcessQuestionStreamFunction/ServiceRole/DefaultPolicy/Resource"
+      }
+    },
+    "ProcessQuestionStreamFunction6EB41FCE": {
+      "Type": "AWS::Lambda::Function",
+      "Properties": {
+        "Code": {
+          "S3Bucket": {
+            "Ref": "AssetParameters383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42eS3BucketAC1482EF"
+          },
+          "S3Key": {
+            "Fn::Join": [
+              "",
+              [
+                {
+                  "Fn::Select": [
+                    0,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42eS3VersionKeyD599CFDE"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "Fn::Select": [
+                    1,
+                    {
+                      "Fn::Split": [
+                        "||",
+                        {
+                          "Ref": "AssetParameters383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42eS3VersionKeyD599CFDE"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            ]
+          }
+        },
+        "Handler": "ProcessQuestionsStream::ProcessQuestionsStream.Function::FunctionHandlerAsync",
+        "Role": {
+          "Fn::GetAtt": [
+            "ProcessQuestionStreamFunctionServiceRole16072DCC",
+            "Arn"
+          ]
+        },
+        "Runtime": "dotnetcore2.1",
+        "Description": "An AWS Lambda function that will process all new questions posted to mythical mysfits and notify the site administrator of the question that was asked.",
+        "Environment": {
+          "Variables": {
+            "SNS_TOPIC_ARN": {
+              "Ref": "TopicBFC7AF6E"
+            }
+          }
+        },
+        "MemorySize": 128,
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ],
+        "Timeout": 30,
+        "TracingConfig": {
+          "Mode": "Active"
+        }
+      },
+      "DependsOn": [
+        "ProcessQuestionStreamFunctionServiceRoleDefaultPolicy1918F927",
+        "ProcessQuestionStreamFunctionServiceRole16072DCC"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/ProcessQuestionStreamFunction/Resource",
+        "aws:asset:path": "asset.383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42e",
+        "aws:asset:property": "Code"
+      }
+    },
+    "ProcessQuestionStreamFunctionDynamoDBEventSourceEstepaDevXRayTable4072FB26FE9B37D6": {
+      "Type": "AWS::Lambda::EventSourceMapping",
+      "Properties": {
+        "EventSourceArn": {
+          "Fn::GetAtt": [
+            "TableCD117FA1",
+            "StreamArn"
+          ]
+        },
+        "FunctionName": {
+          "Ref": "ProcessQuestionStreamFunction6EB41FCE"
+        },
+        "BatchSize": 1,
+        "StartingPosition": "TRIM_HORIZON"
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/ProcessQuestionStreamFunction/DynamoDBEventSource:EstepaDevXRayTable4072FB26/Resource"
+      }
+    },
+    "QuestionsApiRole3225AAFC": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/QuestionsApiRole/Resource"
+      }
+    },
+    "QuestionsApiPolicy2355EAC5": {
+      "Type": "AWS::IAM::Policy",
+      "Properties": {
+        "PolicyDocument": {
+          "Statement": [
+            {
+              "Action": "lambda:InvokeFunction",
+              "Effect": "Allow",
+              "Resource": {
+                "Fn::GetAtt": [
+                  "PostQuestionFunctionE452A8D1",
+                  "Arn"
+                ]
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "PolicyName": "questions_api_policy",
+        "Roles": [
+          {
+            "Ref": "QuestionsApiRole3225AAFC"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/QuestionsApiPolicy/Resource"
+      }
+    },
+    "APIEndpoint7DE78E59": {
+      "Type": "AWS::ApiGateway::RestApi",
+      "Properties": {
+        "Name": "Questions API Service",
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Resource"
+      }
+    },
+    "APIEndpointDeploymentC9A4EBCA3b27aba0bf8ac1341ca80651ea6035f8": {
+      "Type": "AWS::ApiGateway::Deployment",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIEndpoint7DE78E59"
+        },
+        "Description": "Automatically created by the RestApi construct"
+      },
+      "DependsOn": [
+        "APIEndpointquestionsOPTIONS532E102D",
+        "APIEndpointquestionsPOST9C74C154",
+        "APIEndpointquestions78820A92"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Deployment/Resource"
+      }
+    },
+    "APIEndpointDeploymentStageprod90C751C3": {
+      "Type": "AWS::ApiGateway::Stage",
+      "Properties": {
+        "RestApiId": {
+          "Ref": "APIEndpoint7DE78E59"
+        },
+        "DeploymentId": {
+          "Ref": "APIEndpointDeploymentC9A4EBCA3b27aba0bf8ac1341ca80651ea6035f8"
+        },
+        "StageName": "prod",
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ],
+        "TracingEnabled": true
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/DeploymentStage.prod/Resource"
+      }
+    },
+    "APIEndpointCloudWatchRole146E5A0E": {
+      "Type": "AWS::IAM::Role",
+      "Properties": {
+        "AssumeRolePolicyDocument": {
+          "Statement": [
+            {
+              "Action": "sts:AssumeRole",
+              "Effect": "Allow",
+              "Principal": {
+                "Service": "apigateway.amazonaws.com"
+              }
+            }
+          ],
+          "Version": "2012-10-17"
+        },
+        "ManagedPolicyArns": [
+          {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":iam::aws:policy/service-role/AmazonAPIGatewayPushToCloudWatchLogs"
+              ]
+            ]
+          }
+        ],
+        "Tags": [
+          {
+            "Key": "project",
+            "Value": "estepa-dev"
+          },
+          {
+            "Key": "stack",
+            "Value": "xRay"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/CloudWatchRole/Resource"
+      }
+    },
+    "APIEndpointAccount9FF1752D": {
+      "Type": "AWS::ApiGateway::Account",
+      "Properties": {
+        "CloudWatchRoleArn": {
+          "Fn::GetAtt": [
+            "APIEndpointCloudWatchRole146E5A0E",
+            "Arn"
+          ]
+        }
+      },
+      "DependsOn": [
+        "APIEndpoint7DE78E59"
+      ],
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Account"
+      }
+    },
+    "APIEndpointquestions78820A92": {
+      "Type": "AWS::ApiGateway::Resource",
+      "Properties": {
+        "ParentId": {
+          "Fn::GetAtt": [
+            "APIEndpoint7DE78E59",
+            "RootResourceId"
+          ]
+        },
+        "PathPart": "questions",
+        "RestApiId": {
+          "Ref": "APIEndpoint7DE78E59"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Default/questions/Resource"
+      }
+    },
+    "APIEndpointquestionsPOSTApiPermissionEstepaDevXRayAPIEndpointAAB74BDDPOSTquestions2AEDE482": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "PostQuestionFunctionE452A8D1",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "APIEndpoint7DE78E59"
+              },
+              "/",
+              {
+                "Ref": "APIEndpointDeploymentStageprod90C751C3"
+              },
+              "/POST/questions"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Default/questions/POST/ApiPermission.EstepaDevXRayAPIEndpointAAB74BDD.POST..questions"
+      }
+    },
+    "APIEndpointquestionsPOSTApiPermissionTestEstepaDevXRayAPIEndpointAAB74BDDPOSTquestions76D10608": {
+      "Type": "AWS::Lambda::Permission",
+      "Properties": {
+        "Action": "lambda:InvokeFunction",
+        "FunctionName": {
+          "Fn::GetAtt": [
+            "PostQuestionFunctionE452A8D1",
+            "Arn"
+          ]
+        },
+        "Principal": "apigateway.amazonaws.com",
+        "SourceArn": {
+          "Fn::Join": [
+            "",
+            [
+              "arn:",
+              {
+                "Ref": "AWS::Partition"
+              },
+              ":execute-api:",
+              {
+                "Ref": "AWS::Region"
+              },
+              ":",
+              {
+                "Ref": "AWS::AccountId"
+              },
+              ":",
+              {
+                "Ref": "APIEndpoint7DE78E59"
+              },
+              "/test-invoke-stage/POST/questions"
+            ]
+          ]
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Default/questions/POST/ApiPermission.Test.EstepaDevXRayAPIEndpointAAB74BDD.POST..questions"
+      }
+    },
+    "APIEndpointquestionsPOST9C74C154": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "POST",
+        "ResourceId": {
+          "Ref": "APIEndpointquestions78820A92"
+        },
+        "RestApiId": {
+          "Ref": "APIEndpoint7DE78E59"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "Credentials": {
+            "Fn::GetAtt": [
+              "QuestionsApiRole3225AAFC",
+              "Arn"
+            ]
+          },
+          "IntegrationHttpMethod": "POST",
+          "IntegrationResponses": [
+            {
+              "ResponseTemplates": {
+                "application/json": "{\"status\":\"OK\"}"
+              },
+              "StatusCode": "200"
+            }
+          ],
+          "Type": "AWS_PROXY",
+          "Uri": {
+            "Fn::Join": [
+              "",
+              [
+                "arn:",
+                {
+                  "Ref": "AWS::Partition"
+                },
+                ":apigateway:",
+                {
+                  "Ref": "AWS::Region"
+                },
+                ":lambda:path/2015-03-31/functions/",
+                {
+                  "Fn::GetAtt": [
+                    "PostQuestionFunctionE452A8D1",
+                    "Arn"
+                  ]
+                },
+                "/invocations"
+              ]
+            ]
+          }
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Origin": true
+            },
+            "StatusCode": "200"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Default/questions/POST/Resource"
+      }
+    },
+    "APIEndpointquestionsOPTIONS532E102D": {
+      "Type": "AWS::ApiGateway::Method",
+      "Properties": {
+        "HttpMethod": "OPTIONS",
+        "ResourceId": {
+          "Ref": "APIEndpointquestions78820A92"
+        },
+        "RestApiId": {
+          "Ref": "APIEndpoint7DE78E59"
+        },
+        "AuthorizationType": "NONE",
+        "Integration": {
+          "IntegrationResponses": [
+            {
+              "ResponseParameters": {
+                "method.response.header.Access-Control-Allow-Headers": "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token,X-Amz-User-Agent'",
+                "method.response.header.Access-Control-Allow-Origin": "'*'",
+                "method.response.header.Access-Control-Allow-Credentials": "'false'",
+                "method.response.header.Access-Control-Allow-Methods": "'OPTIONS,GET,PUT,POST,DELETE'"
+              },
+              "StatusCode": "200"
+            }
+          ],
+          "PassthroughBehavior": "NEVER",
+          "RequestTemplates": {
+            "application/json": "{\"statusCode\": 200}"
+          },
+          "Type": "MOCK"
+        },
+        "MethodResponses": [
+          {
+            "ResponseParameters": {
+              "method.response.header.Access-Control-Allow-Headers": true,
+              "method.response.header.Access-Control-Allow-Methods": true,
+              "method.response.header.Access-Control-Allow-Credentials": true,
+              "method.response.header.Access-Control-Allow-Origin": true
+            },
+            "StatusCode": "200"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "EstepaDev-XRay/APIEndpoint/Default/questions/OPTIONS/Resource"
+      }
+    }
+  },
+  "Parameters": {
+    "AssetParametersd8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203fS3BucketCF045648": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"d8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203f\""
+    },
+    "AssetParametersd8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203fS3VersionKey910D77B4": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"d8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203f\""
+    },
+    "AssetParametersd8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203fArtifactHash6E6C8730": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"d8556a12d6827f2a12c92d50089a50c278bab47522b270c5a99e669a1ced203f\""
+    },
+    "AssetParameters383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42eS3BucketAC1482EF": {
+      "Type": "String",
+      "Description": "S3 bucket for asset \"383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42e\""
+    },
+    "AssetParameters383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42eS3VersionKeyD599CFDE": {
+      "Type": "String",
+      "Description": "S3 key for asset version \"383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42e\""
+    },
+    "AssetParameters383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42eArtifactHash4237B886": {
+      "Type": "String",
+      "Description": "Artifact hash for asset \"383b3c195db4b3cee3976aa0a33fbdf7bb2d35eea5e7f73bf35d201e1447f42e\""
+    }
+  },
+  "Outputs": {
+    "APIEndpoint87847821": {
+      "Value": {
+        "Fn::Join": [
+          "",
+          [
+            "https://",
+            {
+              "Ref": "APIEndpoint7DE78E59"
+            },
+            ".execute-api.",
+            {
+              "Ref": "AWS::Region"
+            },
+            ".",
+            {
+              "Ref": "AWS::URLSuffix"
+            },
+            "/",
+            {
+              "Ref": "APIEndpointDeploymentStageprod90C751C3"
+            },
+            "/"
+          ]
+        ]
+      }
+    }
+  }
+}

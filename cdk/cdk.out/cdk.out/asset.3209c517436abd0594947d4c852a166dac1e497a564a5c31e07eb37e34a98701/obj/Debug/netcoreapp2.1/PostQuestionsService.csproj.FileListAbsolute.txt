@@ -1,0 +1,12 @@
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\bin\Debug\netcoreapp2.1\PostQuestionsService.deps.json
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\bin\Debug\netcoreapp2.1\PostQuestionsService.runtimeconfig.json
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\bin\Debug\netcoreapp2.1\PostQuestionsService.runtimeconfig.dev.json
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\bin\Debug\netcoreapp2.1\PostQuestionsService.dll
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\bin\Debug\netcoreapp2.1\PostQuestionsService.pdb
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\obj\Debug\netcoreapp2.1\PostQuestionsService.csprojAssemblyReference.cache
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\obj\Debug\netcoreapp2.1\PostQuestionsService.csproj.CoreCompileInputs.cache
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\obj\Debug\netcoreapp2.1\PostQuestionsService.AssemblyInfoInputs.cache
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\obj\Debug\netcoreapp2.1\PostQuestionsService.AssemblyInfo.cs
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\obj\Debug\netcoreapp2.1\PostQuestionsService.dll
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\obj\Debug\netcoreapp2.1\PostQuestionsService.pdb
+C:\git\olds_max\sam.estepa.serverless\lambda\PostQuestionsService\obj\Debug\netcoreapp2.1\PostQuestionsService.genruntimeconfig.cache
