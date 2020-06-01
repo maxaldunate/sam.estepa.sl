@@ -33,7 +33,7 @@ amplify --version
     4.19.0
 ```
 
-* AWS Dotnet Lambda
+* [AWS Dotnet Amazon Lambda Tools](https://github.com/aws/aws-extensions-for-dotnet-cli)
 ```
 cd lambda
 dotnet tool install -g Amazon.Lambda.Tools
