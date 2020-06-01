@@ -41,6 +41,13 @@ dotnet tool install -g Amazon.Lambda.Tools
     Tool 'amazon.lambda.tools' (version '4.0.0') was successfully installed.
 ```
 
+* [The AWS .NET Mock Lambda Test Tool (Preview)](https://github.com/aws/aws-lambda-dotnet/tree/master/Tools/LambdaTestTool#skip-using-the-web-interface)
+```
+dotnet tool install -g Amazon.Lambda.TestTool-3.1
+dotnet lambda-test-tool-3.1
+```
+
+
 * Code
 Clone full 
 
