@@ -19,8 +19,6 @@
 
 ## CDK Dependency Tree
 
-### Independent Stacks
-
 Num | Stack Name | Use | Used By
 ------------ | ------------- | ------------- | -------------
 1| Frontend|-|-
@@ -35,39 +33,6 @@ Num | Stack Name | Use | Used By
 10|KinesisFirehose|<ul><li>8-DynamoDBStack.table</li><li>9-ApiGateway.apiId</li></ul>|-
 11|CICD|<ul><li>6-ECR.ecrRepository</li><li>7-ECS.ecsService.service</li><li>4-DevTools.apiRepository.repositoryArn</li></ul>|-
 
-
-1. Frontend.    Used by None
-2. XRay.        Used by None
-3. Cognito.     Used by [9]-ApiGateway
-4. DevTools.    Used by [11]-CICD
-5. Network.     Used by [7]-ECS, [8]-Dynamo
-6. ECR.         Used by [7]-ECS, [11]-CICD
-
-### Stack with their dependencies
-
-7. ECS          Used by [8]-DynamoDB, [9]-ApiGateway, [11]-CICD
-    * [5]-Network.vpc,
-    * [6]-ECR.ecrRepository
-
-8. DynamoDB     Used by [10]-KinesisFirehose
-    * [5]-Network.vpc,
-    * [7]-ECS.ecsService.service
-
-9. ApiGateway   Used by [10]-KinesisFirehose
-    * [3]-Cognito.userPool.userPoolId,
-    * [7]-ECS.ecsService.loadBalancer.loadBalancerArn, ECS.ecsService.loadBalancer.loadBalancerDnsName
-
-10. KinesisFirehose
-    DynamoDBStack.table,
-    ApiGateway.apiId
-
-11. CICD
-    * [6]-ECR.ecrRepository,
-    * [7]-ECS.ecsService.service,
-    * [4]-DevTools.apiRepository.repositoryArn
-
-
-
 ### Commands to deploy & destroy an stack by name
 ```bash
 cdk deploy  --profile samsoftware-estepa --require-approval never EstepaDev-STACK_NAME
@@ -78,20 +43,22 @@ cdk destroy --profile samsoftware-estepa --require-approval never EstepaDev-STAC
 ## CDK Creation
 
 1. Create Aws Account
-    Download root credentials
-    Deactivate all region except eu-west-1 ()[https://console.aws.amazon.com/iam/home?region=us-east-2#/account_settings]
-    Create IAM user programmatic access only, adding AdministratorAccess permission policy
-    Download credentials
-    Create IAM user programmatic access only, adding AWSCodeCommitPowerUser permission policy
-    [Setup Steps for SSH Connections to AWS CodeCommit Repositories on Windows](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-windows.html)
-    C:\Users\wille\.ssh\config
-    Push ssh-key codecommit_rda to IAM/Users/git-user/Upload SSh public key
-    Add profile to AWS CLI
+    - Download root credentials
+    - Deactivate all region except eu-west-1 ()[https://console.aws.amazon.com/iam/home?region=us-east-2#/account_settings]
+    - Create IAM user programmatic access only, adding AdministratorAccess permission policy
+    - Download credentials
+    - Create IAM user programmatic access only, adding AWSCodeCommitPowerUser permission policy
+    - [Setup Steps for SSH Connections to AWS CodeCommit Repositories on Windows](https://docs.aws.amazon.com/codecommit/latest/userguide/setting-up-ssh-windows.html)
+    - C:\Users\wille\.ssh\config
+    - Push ssh-key codecommit_rda to IAM/Users/git-user/Upload SSh public key
+    - Add profile to AWS CLI
+```
         aws configure --profile samsoftware-estepa
         aws configure --profile samsoftware-git
         C:\Users\user_name\.aws\config
         C:\Users\user_name\.aws\credentials
-    Remove Root User Credentials
+```
+    - Remove Root User Credentials
 
 2. Deploy CDK Tool Kit and independent stacks: Frontend, XRay, Cognito, DevTools, Network & ECR
 ```
