@@ -21,35 +21,55 @@
 
 ### Independent Stacks
 
-1. Frontend
-2. XRay
-3. Cognito
-4. DevTools
-5. Network
-6. ECR
+# | Stack Name | Use | Used By
+------------ | ------------- | ------------- | -------------
+1| Frontend| None|None
+2| XRay|None|None
+3| Cognito|None|[9]-ApiGateway
+4| DevTools|None|[11]-CICD
+5| Network|None|[7]-ECS, [8]-Dynamo
+6| ECR|None|[7]-ECS, [11]-CICD
+7|ECS|[5]-Network.vpc, [6]-ECR.ecrRepository|[8]-DynamoDB, [9]-ApiGateway, [11]-CICD
+8|DynamoDB|[5]-Network.vpc,[7]-ECS.ecsService.service|[10]-KinesisFirehose
+9|ApiGateway|[3]-Cognito.userPool.userPoolId, [7]-ECS.ecsService.loadBalancer.loadBalancerArn, [7]-ECS.ecsService.loadBalancer.loadBalancerDnsName|[10]-KinesisFirehose
+10|KinesisFirehose|[8]-DynamoDBStack.table,[9]-ApiGateway.apiId|None
+11|CICD|[6]-ECR.ecrRepository, [7]-ECS.ecsService.service, [4]-DevTools.apiRepository.repositoryArn|None
+
+
+
+
+
+1. Frontend.    Used by None
+2. XRay.        Used by None
+3. Cognito.     Used by [9]-ApiGateway
+4. DevTools.    Used by [11]-CICD
+5. Network.     Used by [7]-ECS, [8]-Dynamo
+6. ECR.         Used by [7]-ECS, [11]-CICD
 
 ### Stack with their dependencies
 
-7. ECS
-    * [5]Network.vpc,
-    * [6]ECR.ecrRepository
+7. ECS          Used by [8]-DynamoDB, [9]-ApiGateway, [11]-CICD
+    * [5]-Network.vpc,
+    * [6]-ECR.ecrRepository
 
-8. DynamoDB
-    Network.vpc,
-    ECS.ecsService.service
+8. DynamoDB     Used by [10]-KinesisFirehose
+    * [5]-Network.vpc,
+    * [7]-ECS.ecsService.service
 
-9. ApiGateway
-    Cognito.userPool.userPoolId,
-    ECS.ecsService.loadBalancer.loadBalancerArn, ECS.ecsService.loadBalancer.loadBalancerDnsName
+9. ApiGateway   Used by [10]-KinesisFirehose
+    * [3]-Cognito.userPool.userPoolId,
+    * [7]-ECS.ecsService.loadBalancer.loadBalancerArn, ECS.ecsService.loadBalancer.loadBalancerDnsName
 
 10. KinesisFirehose
     DynamoDBStack.table,
     ApiGateway.apiId
 
 11. CICD
-    ECR.ecrRepository,
-    ECS.ecsService.service,
-    DevTools.apiRepository.repositoryArn
+    * [6]-ECR.ecrRepository,
+    * [7]-ECS.ecsService.service,
+    * [4]-DevTools.apiRepository.repositoryArn
+
+
 
 ### Commands to deploy & destroy an stack by name
 ```bash
