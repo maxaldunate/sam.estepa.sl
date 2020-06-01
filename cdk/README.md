@@ -31,8 +31,8 @@
 ### Stack with their dependencies
 
 7. ECS
-    Network.vpc,
-    ECR.ecrRepository
+    * [5]Network.vpc,
+    * [6]ECR.ecrRepository
 
 8. DynamoDB
     Network.vpc,
