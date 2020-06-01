@@ -21,7 +21,7 @@
 
 ### Independent Stacks
 
-# | Stack Name | Use | Used By
+Num | Stack Name | Use | Used By
 ------------ | ------------- | ------------- | -------------
 1| Frontend| None|None
 2| XRay|None|None
