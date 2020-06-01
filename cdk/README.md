@@ -23,23 +23,17 @@
 
 Num | Stack Name | Use | Used By
 ------------ | ------------- | ------------- | -------------
-1| Frontend| None|None
-2| XRay|None|None
-3| Cognito|None|9-ApiGateway
-4| DevTools|None|11-CICD
-5| Network|None|7-ECS, 8]Dynamo
-6| ECR|None|7-ECS, 11-CICD
-7|ECS|5-Network.vpc, 6-ECR.ecrRepository|8-DynamoDB, 9-ApiGateway, 11-CICD
-8|DynamoDB|5-Network.vpc,7-ECS.ecsService.service|10-KinesisFirehose
-9|ApiGateway|<ul><li>3-Cognito.userPool.userPoolId</li><li>7-ECS.ecsService.loadBalancer.loadBalancerArn</li><li>7-ECS.ecsService.loadBalancer.loadBalancerDnsName</li></ul>|[10]-KinesisFirehose
-10|KinesisFirehose|8-DynamoDBStack.table,9-ApiGateway.apiId|None
-11|CICD|6-ECR.ecrRepository, 7-ECS.ecsService.service, 4-DevTools.apiRepository.repositoryArn|None
-
-
-
-
-
-
+1| Frontend|-|-
+2| XRay|-|-
+3| Cognito|-|<ul><li>9-ApiGateway</li></ul>
+4| DevTools|-|<ul><li>11-CICD</li></ul>
+5| Network|-|<ul><li>7-ECS</li><li>8-Dynamo</li></ul>
+6| ECR|-|<ul><li>7-ECS</li><li>11-CICD</li></ul>
+7|ECS|<ul><li>5-Network.vpc</li><li>6-ECR.ecrRepository</li></ul>|<ul><li>8-DynamoDB</li><li>9-ApiGateway</li><li>11-CICD</li></ul>
+8|DynamoDB|<ul><li>5-Network.vpc</li><li>7-ECS.ecsService.service</li></ul>|<ul><li>10-KinesisFirehose</li></ul>
+9|ApiGateway|<ul><li>3-Cognito.userPool.userPoolId</li><li>7-ECS.ecsService.loadBalancer.loadBalancerArn</li><li>7-ECS.ecsService.loadBalancer.loadBalancerDnsName</li></ul>|<ul><li>10-KinesisFirehose</li></ul>
+10|KinesisFirehose|<ul><li>8-DynamoDBStack.table</li><li>9-ApiGateway.apiId</li></ul>|-
+11|CICD|<ul><li>6-ECR.ecrRepository</li><li>7-ECS.ecsService.service</li><li>4-DevTools.apiRepository.repositoryArn</li></ul>|-
 
 
 1. Frontend.    Used by None
