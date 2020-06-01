@@ -9,6 +9,7 @@ Max Aldunate
 * In this doc
     * [Daily Use](#daily-use)
     * [Pending Tasks](#pending-tasks)
+    * [Done Tasks](#done-tasks)
 
 * In Projects
     * [CDK](cdk/README.md)
@@ -52,7 +53,7 @@ http://d1u2xfsf566d4p.cloudfront.net/
 
 
 # Pending Tasks
-* unify in one repo
+
 * rename all mymys
 * Make a s3 assets
 * Make an "on boarding" document
@@ -80,3 +81,6 @@ http://d1u2xfsf566d4p.cloudfront.net/
 * S3 file retention for artifacts, etc
 * Understand cdk  tree dependency
 * how to debug each component
+
+# Done Tasks
+* ~~unify in one repo~~
