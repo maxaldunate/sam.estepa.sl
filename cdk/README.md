@@ -20,31 +20,31 @@
 ## CDK Dependency Tree
 
 * Independent Stacks
-    * Frontend
-    * XRay
-    * Cognito
-    * DevTools
-    * Network
-    * ECR
+    1. Frontend
+    2. XRay
+    3. Cognito
+    4. DevTools
+    5. Network
+    6. ECR
 
 * Stack with their dependencies
-    * ECS
+    7. ECS
         Network.vpc,
         ECR.ecrRepository
 
-    * DynamoDB
+    8. DynamoDB
         Network.vpc,
         ECS.ecsService.service
 
-    * ApiGateway
+    9. ApiGateway
         Cognito.userPool.userPoolId,
         ECS.ecsService.loadBalancer.loadBalancerArn, ECS.ecsService.loadBalancer.loadBalancerDnsName
 
-    * KinesisFirehose
+    10. KinesisFirehose
         DynamoDBStack.table,
         ApiGateway.apiId
 
-    * CICD
+    11. CICD
         ECR.ecrRepository,
         ECS.ecsService.service,
         DevTools.apiRepository.repositoryArn
