@@ -5,6 +5,39 @@
    "version": "0.2.0",
    "configurations": [
        {
+           "name": "lambda PostQuestionsService",//".NET Core Launch (console)",
+           "type": "coreclr",
+           "request": "launch",
+           "preLaunchTask": "build",
+           "program": "${workspaceFolder}/lambda/Debugger.Lambda/bin/Debug/netcoreapp3.1/Debugger.Lambda.exe",
+           "args": ["PostQuestionsService"],
+           "cwd": "${workspaceFolder}",
+           "stopAtEntry": false,
+           "console": "internalConsole"
+       },
+       {
+            "name": "lambda ProcessQuestionsStream",//".NET Core Launch (console)",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/lambda/Debugger.Lambda/bin/Debug/netcoreapp3.1/Debugger.Lambda.exe",
+            "args": ["ProcessQuestionsStream"],
+            "cwd": "${workspaceFolder}",
+            "stopAtEntry": false,
+            "console": "internalConsole"
+        },
+        {
+             "name": "lambda stream",//".NET Core Launch (console)",
+             "type": "coreclr",
+             "request": "launch",
+             "preLaunchTask": "build",
+             "program": "${workspaceFolder}/lambda/Debugger.Lambda/bin/Debug/netcoreapp3.1/Debugger.Lambda.exe",
+             "args": ["stream"],
+             "cwd": "${workspaceFolder}",
+             "stopAtEntry": false,
+             "console": "internalConsole"
+         },
+         {
            "type": "chrome",
            "request": "attach",
            "name": "Attach to Chrome",
