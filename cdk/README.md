@@ -19,36 +19,39 @@
 
 ## CDK Dependency Tree
 
-Frontend
-XRay
-Cognito
-DevTools
-Network
-ECR
+* Independent Stacks
+    * Frontend
+    * XRay
+    * Cognito
+    * DevTools
+    * Network
+    * ECR
 
-ECS
-    Network.vpc,
-    ECR.ecrRepository
+* Stack with their dependencies
+    * ECS
+        Network.vpc,
+        ECR.ecrRepository
 
-DynamoDB
-    Network.vpc,
-    ECS.ecsService.service
+    * DynamoDB
+        Network.vpc,
+        ECS.ecsService.service
 
-ApiGateway
-    Cognito.userPool.userPoolId,
-    ECS.ecsService.loadBalancer.loadBalancerArn, ECS.ecsService.loadBalancer.loadBalancerDnsName
+    * ApiGateway
+        Cognito.userPool.userPoolId,
+        ECS.ecsService.loadBalancer.loadBalancerArn, ECS.ecsService.loadBalancer.loadBalancerDnsName
 
-KinesisFirehose
-    DynamoDBStack.table,
-    ApiGateway.apiId
+    * KinesisFirehose
+        DynamoDBStack.table,
+        ApiGateway.apiId
 
-CICD
-    ECR.ecrRepository,
-    ECS.ecsService.service,
-    DevTools.apiRepository.repositoryArn
+    * CICD
+        ECR.ecrRepository,
+        ECS.ecsService.service,
+        DevTools.apiRepository.repositoryArn
 
-```
-cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-STACK_NAME
+* Commands to deploy & destroy an stack by name
+```bash
+cdk deploy  --profile samsoftware-estepa --require-approval never EstepaDev-STACK_NAME
 cdk destroy --profile samsoftware-estepa --require-approval never EstepaDev-STACK_NAME
 ```
 
