@@ -18,9 +18,9 @@ Max Aldunate
     * [Web API](webapi/README.md)
 
 * In other docs
-    * [Credentials & Endpoints](credentials.md)
-    * [Onboarding](onboarding.md)
-    * [AWS Modules](modules-aws.md)
+    * [Credentials & Endpoints](docs/credentials.md)
+    * [Onboarding](docs/onboarding.md)
+    * [AWS Modules](docs/modules-aws.md)
 
 # Daily Use
 
