@@ -230,17 +230,17 @@ cdk deploy --profile samsoftware-estepa --require-approval never EstepaDev-Front
 
 ### Destroy Cloudformations Stacks
 ```
-cdk destroy EstepaDev-XRay --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-KinesisFirehose --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-APIGateway --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-Cognito --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-ECS --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-DynamoDB --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-Frontend --require-approval never --profile samsoftware-estepa
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-XRay
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-KinesisFirehose
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-APIGateway
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-Cognito
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-ECS
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-DynamoDB
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-Frontend
 
-cdk destroy EstepaDev-ECR --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-DeveloperTools --require-approval never --profile samsoftware-estepa
-cdk destroy EstepaDev-Network --require-approval never --profile samsoftware-estepa
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-ECR
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-DeveloperTools
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-Network
 ```
 
 ### Not Destroyed Resources 
