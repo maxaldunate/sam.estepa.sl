@@ -239,7 +239,7 @@ cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-Dyna
 cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-Frontend
 
 cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-ECR
-cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-DeveloperTools
+cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-DevTools
 cdk destroy --require-approval never --profile samsoftware-estepa EstepaDev-Network
 ```
 
