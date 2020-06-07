@@ -13,12 +13,12 @@ Max Aldunate
     * [AWS Modules](docs/aws-modern-application-workshop-dotnet-cdk-notes.md)
 
 * In Projects
-    * [Frontend](frontend/README.md)
-    * [Web API](webapi/README.md)
 
 * In Archived Projects
     * [CDK](archive/cdk/README.md)
     * [Lambda](archive/lambda/README.md)
+    * [Frontend](archive/frontend/README.md)
+    * [Web API](archive/webapi/README.md)
 
 
 # Documentation
