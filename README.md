@@ -6,20 +6,31 @@ Max Aldunate
 
 ## Contents
 
-* In this doc
-    * [Daily Use](#daily-use)
-
-* In Projects
-    * [CDK](cdk/README.md)
-    * [Frontend](frontend/README.md)
-    * [Lambda](lambda/README.md)
-    * [Web API](webapi/README.md)
-
 * In other docs
     * [Pending Tasks](docs/tasks.md)
     * [Credentials & Endpoints](docs/credentials.md)
     * [Onboarding](docs/onboarding.md)
-    * [AWS Modules](docs/modules-aws.md)
+    * [AWS Modules](docs/aws-modern-application-workshop-dotnet-cdk-notes.md)
+
+* In Projects
+    * [Frontend](frontend/README.md)
+    * [Web API](webapi/README.md)
+
+* In Archived Projects
+    * [CDK](archive/cdk/README.md)
+    * [Lambda](archive/lambda/README.md)
+
+
+# Documentation
+
+
+
+
+## OLD DOCUMENTATION
+* In this doc
+    * [Daily Use](#daily-use)
+
+
 
 # Daily Use
 
