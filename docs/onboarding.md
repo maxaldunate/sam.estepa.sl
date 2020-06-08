@@ -49,5 +49,6 @@ dotnet tool install -g Amazon.Lambda.TestTool-3.1
 dotnet lambda-test-tool-3.1
 ```
 
+* [Docker](https://docs.docker.com/get-docker/)
 
 
