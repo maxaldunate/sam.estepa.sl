@@ -37,7 +37,7 @@ Max Aldunate
 
 
 I'M HERE
-https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#pushing-the-docker-image-to-amazon-ecr
+https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#configuring-the-service-prerequisites-in-amazon-ecs
 
 
 
