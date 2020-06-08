@@ -18,4 +18,4 @@ echo
 echo ------------- Check
 echo after finish you can check creation state with
 echo aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME --query Stacks[0].StackStatus
-echo
+echo  aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME > $STACK_NAME.description.json
