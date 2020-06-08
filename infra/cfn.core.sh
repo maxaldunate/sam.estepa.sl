@@ -2,7 +2,6 @@
 PROJECT_NAME="sam-estepa-sl-dev"
 AWS_PROFILE="--profile samsoftware-estepa"
 AWS_REGION="$(aws configure get region $AWS_PROFILE)"
-
 STACK_NAME=$PROJECT_NAME-CoreStack
 
 echo -------------Variables
