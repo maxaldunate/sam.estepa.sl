@@ -10,8 +10,6 @@ if [ -z "$AWS_REGION" ]; then
 fi
 S3_BUCKET_NAME="$PROJECT_NAME-frontend-$(aws sts get-caller-identity --query Account --output text $AWS_PROFILE)"
 
-cd ${FRONTEND_PATH} && \
-
 echo -------------Variables
 echo PROJECT_NAME        $PROJECT_NAME
 echo AWS_PROFILE         $AWS_PROFILE
@@ -22,6 +20,7 @@ echo AWS_REGION          $AWS_REGION
 echo S3_BUCKET_NAME      $S3_BUCKET_NAME
 echo
 echo ------------- Building frontend
+cd ${FRONTEND_PATH} && \
 # # npm run build -- --prod
 node_modules/@angular/cli/bin/ng build --prod
 echo
@@ -39,7 +38,6 @@ if [ ! $S3_BUCKET_LOCATION = "None" ]; then
 else
     echo "View your project here: http://$S3_BUCKET_NAME.s3-website.us-east-1.amazonaws.com"
 fi
-
 echo
 echo ------------- Check:
 aws s3api list-buckets --query 'Buckets[?starts_with(Name, `sam-estepa`) == `true`]' $AWS_PROFILE
