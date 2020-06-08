@@ -25,6 +25,10 @@ Max Aldunate
 
 
 
+I'M HERE
+https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-1#creating-a-static-website-in-amazon-s3
+
+
 
 ## OLD DOCUMENTATION
 * In this doc
