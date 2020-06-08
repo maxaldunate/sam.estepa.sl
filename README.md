@@ -23,6 +23,25 @@ Max Aldunate
 
 # Documentation
 
+* Deploy Frontend
+```bash
+        cd infra
+        ./deploy_frontend.sh`
+
+            ------------- Output:
+            S3_BUCKET_LOCATION eu-west-1
+            View your project here: http://sam-estepa-sl-dev-frontend-085693846076.s3-website.eu-west-1.amazonaws.com
+        
+        aws s3api list-buckets --query 'Buckets[?starts_with(Name, `sam-estepa`) == `true`]' --profile samsoftware-estepa
+            [
+                {
+                    "Name": "sam-estepa-sl-dev-frontend-085693846076",
+                    "CreationDate": "2020-06-08T15:59:46+00:00"
+                }
+            ]
+```
+
+
 
 
 I'M HERE
