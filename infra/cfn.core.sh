@@ -17,5 +17,5 @@ aws cloudformation create-stack $AWS_PROFILE --stack-name $STACK_NAME --capabili
 echo
 echo ------------- Check
 echo after finish you can check creation state with
-echo aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME
+echo aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME --query Stacks[0].StackStatus
 echo
