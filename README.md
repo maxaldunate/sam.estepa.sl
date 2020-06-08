@@ -37,7 +37,7 @@ Max Aldunate
 
 
 I'M HERE
-https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-1#creating-a-static-website-in-amazon-s3
+https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#module-2a-deploying-a-service-with-aws-fargate
 
 
 
