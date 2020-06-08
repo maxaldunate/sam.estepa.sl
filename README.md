@@ -23,7 +23,7 @@ Max Aldunate
 
 # Documentation
 
-* Deploy Frontend
+* Deploy Frontend (On GitBash)
 ```bash
         cd infra
         ./deploy_frontend.sh`
