@@ -17,6 +17,6 @@ echo
 echo ------------- Check
 echo after finish you can check creation state with
 echo aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME --query Stacks[0].StackStatus
-echo aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME > $STACK_NAME.description.json
+echo "aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME > $STACK_NAME.description.json"
 echo To delete-stack
 echo aws cloudformation $AWS_PROFILE delete-stack --stack-name $STACK_NAME
