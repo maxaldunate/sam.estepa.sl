@@ -33,11 +33,13 @@ Max Aldunate
             View your project here: http://sam-estepa-sl-dev-frontend-085693846076.s3-website.eu-west-1.amazonaws.com
 ```
 
-
+***********************
+TASKSSSSSSSSSSSSSSSS
+***********************
 
 * Rename output.files.json
-* fix name on cfn to be possible to replace task.definition and other sh scripts
 * make destroy script
+* fix name on cfn to be possible to replace task.definition and other sh scripts
 
 I'M HERE
 https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#create-a-load-balancer-listener

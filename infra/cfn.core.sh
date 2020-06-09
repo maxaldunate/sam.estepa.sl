@@ -1,25 +1,16 @@
 #!/usr/bin/env bash
-PROJECT_NAME="sam-estepa-sl-dev"
-AWS_PROFILE="--profile samsoftware-estepa"
-AWS_REGION="$(aws configure get region $AWS_PROFILE)"
-STACK_NAME=$PROJECT_NAME-CoreStack
-
-echo -------------Variables
-echo PROJECT_NAME        $PROJECT_NAME
-echo AWS_PROFILE         $AWS_PROFILE
-echo AWS_REGION          $AWS_REGION
-echo STACK_NAME          $STACK_NAME
-echo
-echo ------------- create-stack $STACK_NAME
-#echo aws cloudformation create-stack $AWS_PROFILE --stack-name $STACK_NAME --capabilities CAPABILITY_NAMED_IAM --template-body file://core.yml
-aws cloudformation create-stack $AWS_PROFILE --stack-name $STACK_NAME --capabilities CAPABILITY_NAMED_IAM --template-body file://core.yml
+source variables.sh
+echo ------------- create-stack $CFN_STACK_NAME
+set -x;
+aws cloudformation create-stack $AWS_PROFILE --stack-name $CFN_STACK_NAME --capabilities CAPABILITY_NAMED_IAM --template-body file://cfn.core.yml
+set +x;
 echo
 echo ------------- Check
 echo after finish you can check creation state with
-echo aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME --query Stacks[0].StackStatus
+echo aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus
 echo To delete-stack
-echo aws cloudformation $AWS_PROFILE delete-stack --stack-name $STACK_NAME
+echo aws cloudformation $AWS_PROFILE delete-stack --stack-name $CFN_STACK_NAME
 echo
 echo ------------- Save Stack Description
-echo "aws cloudformation $AWS_PROFILE describe-stacks --stack-name $STACK_NAME > $STACK_NAME.description.json"
+echo "aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME > result.cfn.core.$CFN_STACK_NAME.json"
 echo
