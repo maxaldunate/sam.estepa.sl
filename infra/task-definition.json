@@ -1,0 +1,33 @@
+{
+    "family": "sam-estepa-sl-dev-service",
+    "cpu": "256",
+    "memory": "512",
+    "networkMode": "awsvpc",
+    "requiresCompatibilities": [
+      "FARGATE"
+    ],
+    "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-1VNDLMV59ZVJN",
+    "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-86E88E50ARY8",
+    "containerDefinitions": [
+      {
+        "name": "sam-estepa-sl-dev-Service",
+        "image": "085693846076.dkr.ecr.eu-west-1.amazonaws.com/sam-estepa-sl/service-webapi:latest",
+        "portMappings": [
+          {
+            "containerPort": 8080,
+            "protocol": "http"
+          }
+        ],
+        "logConfiguration": {
+          "logDriver": "awslogs",
+          "options": {
+            "awslogs-group": "sam-estepa-sl-dev-logs",
+            "awslogs-region": "eu-west-1",
+            "awslogs-stream-prefix": "awslogs-sam-estepa-sl-dev-service"
+          }
+        },
+        "essential": true
+      }
+    ]
+  }
+  

@@ -1,0 +1,30 @@
+{
+    "LoadBalancers": [
+        {
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/bc3e66e79a986735",
+            "DNSName": "sam-estepa-sl-dev-nlb-bc3e66e79a986735.elb.eu-west-1.amazonaws.com",
+            "CanonicalHostedZoneId": "Z2IFOLAFXWLO4F",
+            "CreatedTime": "2020-06-09T16:00:15.503000+00:00",
+            "LoadBalancerName": "sam-estepa-sl-dev-nlb",
+            "Scheme": "internet-facing",
+            "VpcId": "vpc-02b977cd42aaaf7e2",
+            "State": {
+                "Code": "provisioning"
+            },
+            "Type": "network",
+            "AvailabilityZones": [
+                {
+                    "ZoneName": "eu-west-1a",
+                    "SubnetId": "subnet-057bf70568ce1086f",
+                    "LoadBalancerAddresses": []
+                },
+                {
+                    "ZoneName": "eu-west-1b",
+                    "SubnetId": "subnet-049a98be0cfaa7199",
+                    "LoadBalancerAddresses": []
+                }
+            ],
+            "IpAddressType": "ipv4"
+        }
+    ]
+}

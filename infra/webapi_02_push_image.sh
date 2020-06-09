@@ -11,7 +11,7 @@ echo AWS_PROFILE         $AWS_PROFILE
 echo AWS_REGION          $AWS_REGION
 echo AWS_ACCOUNT_ID      $AWS_ACCOUNT_ID
 echo
-echo ------------- createing AWS Registry
+echo ------------- creating AWS Registry
 echo aws ecr $AWS_PROFILE create-repository --repository-name sam-estepa-sl/service-webapi
 aws ecr $AWS_PROFILE create-repository --repository-name sam-estepa-sl/service-webapi
 echo

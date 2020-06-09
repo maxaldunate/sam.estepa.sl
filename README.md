@@ -35,9 +35,12 @@ Max Aldunate
 
 
 
+* Rename output.files.json
+* fix name on cfn to be possible to replace task.definition and other sh scripts
+* make destroy script
 
 I'M HERE
-https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#configuring-the-service-prerequisites-in-amazon-ecs
+https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#create-a-load-balancer-listener
 
 
 
