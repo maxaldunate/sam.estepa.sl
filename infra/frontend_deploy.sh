@@ -6,7 +6,6 @@ cd ${FRONTEND_PATH} && \
 node_modules/@angular/cli/bin/ng build --prod
 echo
 echo ------------- Creation and Copying to bucket
-aws s3 $AWS_PROFILE mb s3://$S3_FRONTEND_BUCKET_NAME --region $AWS_REGION || true
 aws s3 $AWS_PROFILE website s3://$S3_FRONTEND_BUCKET_NAME --index index.html --error index.html
 aws s3 $AWS_PROFILE rm s3://$S3_FRONTEND_BUCKET_NAME --recursive
 aws s3 $AWS_PROFILE cp $FRONTEND_BUILD_PATH s3://$S3_FRONTEND_BUCKET_NAME --acl public-read --recursive

@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+set +x;
+LINE="---------------- "
+# --
 PROJECT_NAME="sam-estepa-sl-dev"
 AWS_PROFILE="--profile samsoftware-estepa"
 AWS_REGION="$(aws configure get region $AWS_PROFILE)"
@@ -11,8 +14,9 @@ WEBAPI_PATH="$DIR../webapi"
 # --
 S3_FRONTEND_BUCKET_NAME=$PROJECT_NAME-frontend-$AWS_ACCOUNT_ID
 CFN_STACK_NAME=$PROJECT_NAME-CoreStack
+ECR_REPOSITORY="sam-estepa-sl/service-webapi"
 echo
-echo -------------Variables
+echo $LINE Variables
 echo -e PROJECT_NAME '\t' '\t''\t' '\t' $PROJECT_NAME
 echo -e AWS_PROFILE '\t' '\t''\t' '\t' $AWS_PROFILE
 echo -e AWS_REGION '\t' '\t''\t' '\t' $AWS_REGION
