@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
 cd ../helpers
-./webapi_task_def.sh destroy
+./webapi.sh create
 cd ../resources
