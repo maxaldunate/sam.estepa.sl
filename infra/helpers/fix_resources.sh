@@ -1,18 +1,18 @@
 #!/usr/bin/env bash
 source variables.sh
 
-results() {
-    echo "{" > ../results/fix_resources.json
-    echo "   \"ECRRepositoryName\": \"$ECR_REPOSITORY\"," >> ../results/fix_resources.json
-    echo "   \"FrontendBucketUrl\": \"http://$S3_FRONTEND_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com\"" >> ../results/fix_resources.json
-    echo "}" >> ../results/fix_resources.json
+outputs() {
+    echo "{" > ../outputs/fix_resources.json
+    echo "   \"ECRRepositoryName\": \"$ECR_REPOSITORY\"," >> ../outputs/fix_resources.json
+    echo "   \"FrontendBucketUrl\": \"http://$S3_FRONTEND_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com\"" >> ../outputs/fix_resources.json
+    echo "}" >> ../outputs/fix_resources.json
     echo
 }
 
 aws_registry_create() {
     echo $LINE AWS Registry Create
     set -x;
-    aws ecr $AWS_PROFILE create-repository --repository-name $ECR_REPOSITORY > ../results/fix_resources_registry.json
+    aws ecr $AWS_PROFILE create-repository --repository-name $ECR_REPOSITORY > ../outputs/fix_resources_registry.json
     set +x;
     echo
 }
@@ -41,7 +41,7 @@ frontend_bucket_destroy() {
 create() {
     aws_registry_create
     frontend_bucket_create
-    results
+    outputs
 }
 
 destroy() {

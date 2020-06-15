@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 source variables.sh
 
-results() {
+outputs() {
     echo $LINE Save Stack Description
     set -x;
-    aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME > ../results/cfn_core.json
+    aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME > ../outputs/cfn_core.json
     set +x;
     echo
 }
 
 check() {
     echo $LINE Check Status of creation
-    echo after finish you MUST run 'cfn_core_results.sh'
+    echo after finish you MUST run 'cfn_core_outputs.sh'
     set -x;
     aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus
     set +x;
@@ -43,7 +43,7 @@ create() {
     done
     echo Current status ... $STACK_STATUS
 
-    results
+    outputs
     check
 }
 
