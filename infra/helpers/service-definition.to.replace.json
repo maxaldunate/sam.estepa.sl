@@ -1,0 +1,30 @@
+{
+  "serviceName": "REPLACE_ME_PROJECT_NAME-Service",
+  "cluster": "REPLACE_ME_PROJECT_NAME-Cluster",
+  "launchType": "FARGATE",
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 0
+  },
+  "desiredCount": 1,
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "DISABLED",
+      "securityGroups": [
+        "REPLACE_ME_SG_ID"
+      ],
+      "subnets": [
+        "REPLACE_ME_PRIVATE_SUBNET_ONE",
+        "REPLACE_ME_PRIVATE_SUBNET_TWO"
+      ]
+    }
+  },
+  "taskDefinition": "REPLACE_ME_PROJECT_NAMEservice",
+  "loadBalancers": [
+    {
+      "containerName": "REPLACE_ME_PROJECT_NAME-Service",
+      "containerPort": 8080,
+      "targetGroupArn": "REPLACE_ME_NLB_TARGET_GROUP_ARN"
+    }
+  ]
+}

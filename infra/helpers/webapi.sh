@@ -6,45 +6,82 @@ PRIVATE_SUBNET_ONE=""
 PRIVATE_SUBNET_TWO=""
 PUBLIC_SUBNET_ONE=""
 PUBLIC_SUBNET_TWO=""
+
+ECS_CLUSTER_ARN=""
+
+NLB_ARN=""
 NLB_TARGET_GROUP_ARN=""
+NLB_LISTENER_ARN=""
+VPC_ID=""
 
 results() {
     echo "{" > ../results/webapi.json
-    echo "   \"FARGATE_CONTAINER_SECURITY_GROUP\": \"$FARGATE_CONTAINER_SECURITY_GROUP\"," >> ../results/webapi.json
     echo "   \"ECSClusterName\": \"$PROJECT_NAME-Cluster\"," >> ../results/webapi.json
     echo "   \"CloudWatchLogsGroup\": \"$PROJECT_NAME-logs\"," >> ../results/webapi.json
+    echo "   \"FARGATE_CONTAINER_SECURITY_GROUP\": \"$FARGATE_CONTAINER_SECURITY_GROUP\"," >> ../results/webapi.json
     echo "   \"PRIVATE_SUBNET_ONE\": \"$PRIVATE_SUBNET_ONE\"," >> ../results/webapi.json
     echo "   \"PRIVATE_SUBNET_TWO\": \"$PRIVATE_SUBNET_TWO\"," >> ../results/webapi.json
     echo "   \"PUBLIC_SUBNET_ONE\": \"$PUBLIC_SUBNET_ONE\"," >> ../results/webapi.json
     echo "   \"PUBLIC_SUBNET_TWO\": \"$PUBLIC_SUBNET_TWO\"," >> ../results/webapi.json
-    echo "   \"NLB_TARGET_GROUP_ARN\": \"$NLB_TARGET_GROUP_ARN\"" >> ../results/webapi.json
+    
+    echo "   \"ECS_CLUSTER_ARN\": \"$ECS_CLUSTER_ARN\"," >> ../results/webapi.json
+    echo "   \"VPC_ID\": \"$VPC_ID\"," >> ../results/webapi.json
+
+    echo "   \"NLB_ARN\": \"$NLB_ARN\"," >> ../results/webapi.json
+    echo "   \"NLB_TARGET_GROUP_ARN\": \"$NLB_TARGET_GROUP_ARN\"," >> ../results/webapi.json
+    echo "   \"NLB_LISTENER_ARN\": \"$NLB_LISTENER_ARN\"" >> ../results/webapi.json
     echo "}" >> ../results/webapi.json
     echo
 }
 
-load_balancer_group_create() {
-
-AQUI ME QUEDO
-
-    echo $LINE Create a Load Balancer Target Group
-    aws elbv2 $AWS_PROFILE create-target-group --name $PROJECT_NAME-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id "vpc-02b977cd42aaaf7e2" --health-check-interval-seconds 10 --health-check-path "//" --health-check-protocol HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > result-target-group.json
-    echo
-
+get_variables_from_cfn_core() {
+    VPC_ID=$(grep -A2 VPCId ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    FARGATE_CONTAINER_SECURITY_GROUP=$(grep -A2 FargateContainerSecurityGroup ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    PRIVATE_SUBNET_ONE=$(grep -A2 PrivateSubnetOne ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    PRIVATE_SUBNET_TWO=$(grep -A2 PrivateSubnetTwo ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    PUBLIC_SUBNET_ONE=$(grep -A2 PublicSubnetOne ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    PUBLIC_SUBNET_TWO=$(grep -A2 PublicSubnetTwo ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
 }
 
 load_balancer_create() {
-    echo $LINE Create Network Load Balancer - NLB
-    PUBLIC_SUBNET_ONE=$(grep -A2 PublicSubnetOne ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
-    PUBLIC_SUBNET_TWO=$(grep -A2 PublicSubnetTwo ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    echo $LINE Create NLB
     set -x;
-    aws elbv2 $AWS_PROFILE create-load-balancer --name $PROJECT_NAME-nlb --scheme internet-facing --type network --subnets $PUBLIC_SUBNET_ONE $PUBLIC_SUBNET_TWO > ../results/webapi_load_balancer.json
+    aws elbv2 $AWS_PROFILE create-load-balancer --name $PROJECT_NAME-nlb --scheme internet-facing --type network --subnets $PUBLIC_SUBNET_ONE $PUBLIC_SUBNET_TWO > ../results/webapi_nlb.json
     set +x;
+    NLB_ARN=$(grep -A2 LoadBalancerArn ../results/webapi_nlb.json | grep LoadBalancerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+
+    echo $LINE Create NLB Target Group
+    set -x;
+    aws elbv2 $AWS_PROFILE create-target-group --name $PROJECT_NAME-TargetGroup --port 8080 --protocol TCP --target-type ip --vpc-id $VPC_ID --health-check-interval-seconds 10 --health-check-path "//" --health-check-protocol HTTP --healthy-threshold-count 3 --unhealthy-threshold-count 3 > ../results/webapi_nlb_target_group.json
+    set +x;
+    NLB_TARGET_GROUP_ARN=$(grep -A2 TargetGroupArn ../results/webapi_nlb_target_group.json | grep TargetGroupArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+
+    echo $LINE Create NLB Listener
+    set -x;
+    aws elbv2 $AWS_PROFILE create-listener --default-actions TargetGroupArn=$NLB_TARGET_GROUP_ARN,Type=forward --load-balancer-arn $NLB_ARN --port 80 --protocol TCP > ../results/webapi_nbl_listener.json 
+    set +x;
+    NLB_LISTENER_ARN=$(grep -A2 ListenerArn ../results/webapi_nbl_listener.json | grep ListenerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+
+    
     echo
 }
 load_balancer_destroy() {
-    echo $LINE Destroy Network Load Balancer - NLB
+    echo $LINE Destroy NLB Listener
+    NLB_LISTENER_ARN=$(grep -A2 ListenerArn ../results/webapi_nbl_listener.json | grep ListenerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
-    aws elbv2 $AWS_PROFILE delete-load-balancer --load-balancer-name $PROJECT_NAME-nlb
+    aws elbv2 $AWS_PROFILE delete-listener --listener-arn $NLB_LISTENER_ARN
+    set +x;
+    echo
+    echo $LINE Destroy NLB Target Group
+    NLB_TARGET_GROUP_ARN=$(grep -A2 TargetGroupArn ../results/webapi_nlb_target_group.json | grep TargetGroupArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    set -x;
+    aws elbv2 $AWS_PROFILE delete-target-group --target-group-arn $NLB_TARGET_GROUP_ARN
+    set +x;
+    echo
+    echo $LINE Destroy NLB
+    NLB_ARN=$(grep -A2 LoadBalancerArn ../results/webapi_nlb.json | grep LoadBalancerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    set -x;
+    aws elbv2 $AWS_PROFILE delete-load-balancer --load-balancer-arn $NLB_ARN
     set +x;
     echo
 }
@@ -53,29 +90,23 @@ register_ecs_task_definition_create() {
     echo ------------- Register an ECS Task Definition
 
     cp task-definition.to.replace.json task-definition.json
+
     sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" task-definition.json
-
-    FARGATE_CONTAINER_SECURITY_GROUP=$(grep -A2 FargateContainerSecurityGroup ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     sed -i "s/REPLACE_ME_SG_ID/$FARGATE_CONTAINER_SECURITY_GROUP/g" task-definition.json
-
-    PRIVATE_SUBNET_ONE=$(grep -A2 PrivateSubnetOne ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     sed -i "s/REPLACE_ME_PRIVATE_SUBNET_ONE/$PRIVATE_SUBNET_ONE/g" task-definition.json
-
-    PRIVATE_SUBNET_TWO=$(grep -A2 PrivateSubnetTwo ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     sed -i "s/REPLACE_ME_PRIVATE_SUBNET_TWO/$PRIVATE_SUBNET_TWO/g" task-definition.json
-
-    NLB_TARGET_GROUP_ARN=$(grep -A2 LoadBalancerArn ../results/webapi_load_balancer.json | grep LoadBalancerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     sed -i "s,REPLACE_ME_NLB_TARGET_GROUP_ARN,$NLB_TARGET_GROUP_ARN,g" task-definition.json
 
     set -x;
-    aws ecs $AWS_PROFILE register-task-definition --cli-input-json file://task-definition.json
+    aws ecs $AWS_PROFILE register-task-definition --cli-input-json file://task-definition.json > ../results/webapi_ecs_task_definition.json
     set +x;
     echo
 }
 register_ecs_task_definition_destroy() {
     echo ------------- Deregister an ECS Task Definition
     set -x;
-    aws ecs $AWS_PROFILE deregister-task-definition --task-definition The family and revision (family:revision ) or full Amazon Resource Name (ARN) of the task definition to deregister. You must specify a revision .
+    aws ecs $AWS_PROFILE deregister-task-definition --task-definition 
+    # ToDo Max. The family and revision (family:revision ) or full Amazon Resource Name (ARN) of the task definition to deregister. You must specify a revision .
     set +x;
     echo
 }
@@ -83,14 +114,15 @@ register_ecs_task_definition_destroy() {
 ecs_cluster_create() {
     echo $LINE Create Amazon ECS Cluster
     set -x;
-    aws ecs $AWS_PROFILE create-cluster --cluster-name $PROJECT_NAME-Cluster
+    aws ecs $AWS_PROFILE create-cluster --cluster-name $PROJECT_NAME-Cluster > ../results/webapi_ecs_cluster.json 
     set +x;
+    ECS_CLUSTER_ARN=$(grep -A2 clusterArn ../results/webapi_ecs_cluster.json | grep clusterArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     echo
 }
 ecs_cluster_destroy() {
     echo $LINE Destroy Amazon ECS Cluster
     set -x;
-    aws ecs $AWS_PROFILE delete-cluster --cluster $PROJECT_NAME-Cluster
+    aws ecs $AWS_PROFILE delete-cluster --cluster $PROJECT_NAME-Cluster > ../results/webapi_ecs_cluster.json
     set +x;
     echo
 }
@@ -111,8 +143,8 @@ cloudwatch_logs_group_destroy() {
     echo
 }
 
-
 create() {
+    get_variables_from_cfn_core
     ecs_cluster_create
     cloudwatch_logs_group_create
     load_balancer_create
@@ -121,10 +153,12 @@ create() {
 }
 
 destroy() {
-    register_ecs_task_definition_destroy
+    get_variables_from_cfn_core
+    #register_ecs_task_definition_destroy
     load_balancer_destroy
     cloudwatch_logs_group_destroy
     ecs_cluster_destroy
+    results
 }
 
 USAGGE="Error! Usage : './webapi_task_def.sh create' or './webapi_task_def.sh destroy'"

@@ -1,30 +1,32 @@
 {
-  "serviceName": "MythicalMysfits-Service",
-  "cluster": "MythicalMysfits-Cluster",
-  "launchType": "FARGATE",
-  "deploymentConfiguration": {
-    "maximumPercent": 200,
-    "minimumHealthyPercent": 0
-  },
-  "desiredCount": 1,
-  "networkConfiguration": {
-    "awsvpcConfiguration": {
-      "assignPublicIp": "DISABLED",
-      "securityGroups": [
-        "REPLACE_ME_SG_ID"
-      ],
-      "subnets": [
-        "REPLACE_ME_PRIVATE_SUBNET_ONE",
-        "REPLACE_ME_PRIVATE_SUBNET_TWO"
-      ]
-    }
-  },
-  "taskDefinition": "mythicalmysfitsservice",
-  "loadBalancers": [
+  "family": "mythicalmysfitsservice",
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "executionRoleArn": "REPLACE_ME_ECS_SERVICE_ROLE_ARN",
+  "taskRoleArn": "REPLACE_ME_ECS_TASK_ROLE_ARN",
+  "containerDefinitions": [
     {
-      "containerName": "MythicalMysfits-Service",
-      "containerPort": 8080,
-      "targetGroupArn": "REPLACE_ME_NLB_TARGET_GROUP_ARN"
+      "name": "MythicalMysfits-Service",
+      "image": "REPLACE_ME_IMAGE_TAG_USED_IN_ECR_PUSH",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "http"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "mythicalmysfits-logs",
+          "awslogs-region": "REPLACE_ME_REGION",
+          "awslogs-stream-prefix": "awslogs-mythicalmysfits-service"
+        }
+      },
+      "essential": true
     }
   ]
 }

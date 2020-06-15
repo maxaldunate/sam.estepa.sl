@@ -1,4 +1,14 @@
 {
    "ECSClusterName": "sam-estepa-sl-dev-Cluster",
-   "CloudWatchLogsGroup": "sam-estepa-sl-dev-logs"
+   "CloudWatchLogsGroup": "sam-estepa-sl-dev-logs",
+   "FARGATE_CONTAINER_SECURITY_GROUP": "sg-0f489caeaf6b43761",
+   "PRIVATE_SUBNET_ONE": "subnet-03588865bb757ad93",
+   "PRIVATE_SUBNET_TWO": "subnet-074fc98c68646133d",
+   "PUBLIC_SUBNET_ONE": "subnet-0baf0752fbe21f44a",
+   "PUBLIC_SUBNET_TWO": "subnet-0533e8c318319c53e",
+   "ECS_CLUSTER_ARN": "",
+   "VPC_ID": "vpc-0bd197d05dee0fa23",
+   "NLB_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29",
+   "NLB_TARGET_GROUP_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/ba100c2a6a297676",
+   "NLB_LISTENER_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29/25e6bf07ab1a8c0c"
 }
