@@ -56,6 +56,12 @@ destroy() {
         STACK_STATUS=$(aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus --output text)
         echo Current status ... $STACK_STATUS
     done
+
+# ToDo Max. Fix that 
+#     An error occurred (ValidationError) when calling the DescribeStacks operation: Stack with id sam-estepa-sl-dev-CoreStack does not exist
+# Current status ...
+# ./cfn_core.sh: line 54: [: ==: unary operator expected
+
     echo Current status ... $STACK_STATUS
 
 }

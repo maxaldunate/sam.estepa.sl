@@ -9,16 +9,16 @@ PUBLIC_SUBNET_TWO=""
 NLB_TARGET_GROUP_ARN=""
 
 results() {
-    echo "{" > ../results/webapi_task_def.json
-    echo "   \"FARGATE_CONTAINER_SECURITY_GROUP\": \"$FARGATE_CONTAINER_SECURITY_GROUP\"," >> ../results/webapi_task_def.json
-    echo "   \"ECSClusterName\": \"$PROJECT_NAME-Cluster\"," >> ../results/webapi_first.json
-    echo "   \"CloudWatchLogsGroup\": \"$PROJECT_NAME-logs\"," >> ../results/webapi_first.json
-    echo "   \"PRIVATE_SUBNET_ONE\": \"$PRIVATE_SUBNET_ONE\"," >> ../results/webapi_task_def.json
-    echo "   \"PRIVATE_SUBNET_TWO\": \"$PRIVATE_SUBNET_TWO\"," >> ../results/webapi_task_def.json
-    echo "   \"PUBLIC_SUBNET_ONE\": \"$PUBLIC_SUBNET_ONE\"," >> ../results/webapi_task_def.json
-    echo "   \"PUBLIC_SUBNET_TWO\": \"$PUBLIC_SUBNET_TWO\"," >> ../results/webapi_task_def.json
-    echo "   \"NLB_TARGET_GROUP_ARN\": \"$NLB_TARGET_GROUP_ARN\"" >> ../results/webapi_task_def.json
-    echo "}" >> ../results/webapi_task_def.json
+    echo "{" > ../results/webapi.json
+    echo "   \"FARGATE_CONTAINER_SECURITY_GROUP\": \"$FARGATE_CONTAINER_SECURITY_GROUP\"," >> ../results/webapi.json
+    echo "   \"ECSClusterName\": \"$PROJECT_NAME-Cluster\"," >> ../results/webapi.json
+    echo "   \"CloudWatchLogsGroup\": \"$PROJECT_NAME-logs\"," >> ../results/webapi.json
+    echo "   \"PRIVATE_SUBNET_ONE\": \"$PRIVATE_SUBNET_ONE\"," >> ../results/webapi.json
+    echo "   \"PRIVATE_SUBNET_TWO\": \"$PRIVATE_SUBNET_TWO\"," >> ../results/webapi.json
+    echo "   \"PUBLIC_SUBNET_ONE\": \"$PUBLIC_SUBNET_ONE\"," >> ../results/webapi.json
+    echo "   \"PUBLIC_SUBNET_TWO\": \"$PUBLIC_SUBNET_TWO\"," >> ../results/webapi.json
+    echo "   \"NLB_TARGET_GROUP_ARN\": \"$NLB_TARGET_GROUP_ARN\"" >> ../results/webapi.json
+    echo "}" >> ../results/webapi.json
     echo
 }
 
