@@ -3,8 +3,8 @@ source variables.sh
 
 results() {
     echo "{" > ../results/fix_resources.json
-    echo "   ECRRepositoryName: '$ECR_REPOSITORY'," >> ../results/fix_resources.json
-    echo "   FrontendBucketUrl: 'http://$S3_FRONTEND_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com'" >> ../results/fix_resources.json
+    echo "   \"ECRRepositoryName\": \"$ECR_REPOSITORY\"," >> ../results/fix_resources.json
+    echo "   \"FrontendBucketUrl\": \"http://$S3_FRONTEND_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com\"" >> ../results/fix_resources.json
     echo "}" >> ../results/fix_resources.json
     echo
 }
