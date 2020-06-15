@@ -49,6 +49,15 @@ create() {
 
 destroy() {
     stack_destroy
+    
+    STACK_STATUS=$(aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus --output text)
+    until [ $STACK_STATUS == "DELETE_COMPLETE" ]; do
+        sleep 30
+        STACK_STATUS=$(aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus --output text)
+        echo Current status ... $STACK_STATUS
+    done
+    echo Current status ... $STACK_STATUS
+
 }
 
 USAGGE="Error! Usage : './cfn_core.sh create' or './cfn_core.sh destroy' "
