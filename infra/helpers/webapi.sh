@@ -37,7 +37,7 @@ load_balancer_create() {
     PUBLIC_SUBNET_ONE=$(grep -A2 PublicSubnetOne ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     PUBLIC_SUBNET_TWO=$(grep -A2 PublicSubnetTwo ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
-    aws elbv2 $AWS_PROFILE create-load-balancer --name $PROJECT_NAME-nlb --scheme internet-facing --type network --subnets $PUBLIC_SUBNET_ONE $PUBLIC_SUBNET_TWO > ../results/webapi_task_def_load_balancer.json
+    aws elbv2 $AWS_PROFILE create-load-balancer --name $PROJECT_NAME-nlb --scheme internet-facing --type network --subnets $PUBLIC_SUBNET_ONE $PUBLIC_SUBNET_TWO > ../results/webapi_load_balancer.json
     set +x;
     echo
 }
@@ -64,7 +64,7 @@ register_ecs_task_definition_create() {
     PRIVATE_SUBNET_TWO=$(grep -A2 PrivateSubnetTwo ../results/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     sed -i "s/REPLACE_ME_PRIVATE_SUBNET_TWO/$PRIVATE_SUBNET_TWO/g" task-definition.json
 
-    NLB_TARGET_GROUP_ARN=$(grep -A2 LoadBalancerArn ../results/webapi_task_def_load_balancer.json | grep LoadBalancerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    NLB_TARGET_GROUP_ARN=$(grep -A2 LoadBalancerArn ../results/webapi_load_balancer.json | grep LoadBalancerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     sed -i "s,REPLACE_ME_NLB_TARGET_GROUP_ARN,$NLB_TARGET_GROUP_ARN,g" task-definition.json
 
     set -x;

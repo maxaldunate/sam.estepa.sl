@@ -33,11 +33,12 @@ Max Aldunate
 ```
 
 ### Stack Creation
+* cd infra/resources
 * ./fix_resources_create.sh 
 * ./cfn_core_create.sh 
+* ./webapi_first_create.sh
 
 
-* ./webapi_first_create
 * ./webapi_task_def_create
 * ./frontend_deploy.sh
 
