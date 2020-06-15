@@ -29,28 +29,27 @@ Max Aldunate
         ./deploy_frontend.sh`
 
             ------------- Output:
-            S3_BUCKET_LOCATION eu-west-1
-            View your project here: http://sam-estepa-sl-dev-frontend-085693846076.s3-website.eu-west-1.amazonaws.com
+            View your project here: http://sam-estepa-sl-dev-frontend-085693846076.s3-website-eu-west-1.amazonaws.com
 ```
 
 ### Stack Creation
 * ./fix_resources_create.sh 
 * ./cfn_core_create.sh 
-* After Stack "CREATE_COMPLETE" status
-* ./cfn_core_create.sh
 
 
 * ./webapi_first_create
 * ./webapi_task_def_create
 * ./frontend_deploy.sh
 
-### Stack Creation
+### Stack Destroty
 * ./webapi_first_destroy
 * ./webapi_task_def_destroy
 * ./cfn_core_destroy.sh 
 * ./fix_resources_destroy.sh 
 
-
+### deploy
+./frontend_deploy
+./webapi_deploy
 
 
 REVISAR webapi_first_create  separar creacion de recursos del deply de la wepapi
