@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 source variables.sh
 
+results() {
+    echo "{" > ../results/webapi_first.json
+    echo "   \"ECSClusterName\": \"$PROJECT_NAME-Cluster\"," >> ../results/webapi_first.json
+    echo "   \"CloudWatchLogsGroup\": \"$PROJECT_NAME-logs\"" >> ../results/webapi_first.json
+    echo "}" >> ../results/webapi_first.json
+    echo
+}
+
 ecs_cluster_create() {
     echo $LINE Create Amazon ECS Cluster
     set -x;
@@ -35,7 +43,7 @@ cloudwatch_logs_group_destroy() {
 create() {
     ecs_cluster_create
     cloudwatch_logs_group_create
-
+    results
 }
 
 destroy() {
