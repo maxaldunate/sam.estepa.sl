@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
 source variables.sh
 
+results() {
+    echo "{" > ../results/fix_resources.json
+    echo "   ECRRepositoryName: '$ECR_REPOSITORY'," >> ../results/fix_resources.json
+    echo "   FrontendBucketUrl: 'http://$S3_FRONTEND_BUCKET_NAME.s3-website-$AWS_REGION.amazonaws.com'" >> ../results/fix_resources.json
+    echo "}" >> ../results/fix_resources.json
+    echo
+}
+
 aws_registry_create() {
     echo $LINE AWS Registry Create
     set -x;
@@ -20,6 +28,7 @@ frontend_bucket_create() {
     echo $LINE Creation Frontend Bucket
     set -x;
     aws s3 $AWS_PROFILE mb s3://$S3_FRONTEND_BUCKET_NAME --region $AWS_REGION || true
+    aws s3 $AWS_PROFILE website s3://$S3_FRONTEND_BUCKET_NAME --index index.html --error index.html
     set +x;
 }
 frontend_bucket_destroy() {
@@ -32,6 +41,7 @@ frontend_bucket_destroy() {
 create() {
     aws_registry_create
     frontend_bucket_create
+    results
 }
 
 destroy() {
