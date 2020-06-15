@@ -1,0 +1,4 @@
+{
+   "ECSClusterName": "sam-estepa-sl-dev-Cluster",
+   "CloudWatchLogsGroup": "sam-estepa-sl-dev-logs"
+}

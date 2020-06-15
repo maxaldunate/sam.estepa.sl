@@ -1,4 +1,4 @@
 {
-   ECRRepositoryName: 'sam-estepa-sl/service-webapi',
-   FrontendBucketUrl: 'http://sam-estepa-sl-dev-frontend-085693846076.s3-website-eu-west-1.amazonaws.com'
+   "ECRRepositoryName": "sam-estepa-sl/service-webapi",
+   "FrontendBucketUrl": "http://sam-estepa-sl-dev-frontend-085693846076.s3-website-eu-west-1.amazonaws.com"
 }
