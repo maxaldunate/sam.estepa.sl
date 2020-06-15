@@ -12,7 +12,7 @@ results() {
 aws_registry_create() {
     echo $LINE AWS Registry Create
     set -x;
-    aws ecr $AWS_PROFILE create-repository --repository-name $ECR_REPOSITORY
+    aws ecr $AWS_PROFILE create-repository --repository-name $ECR_REPOSITORY > ../results/fix_resources_registry.json
     set +x;
     echo
 }

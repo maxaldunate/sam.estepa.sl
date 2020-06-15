@@ -1,0 +1,13 @@
+{
+    "repository": {
+        "repositoryArn": "arn:aws:ecr:eu-west-1:085693846076:repository/sam-estepa-sl/service-webapi",
+        "registryId": "085693846076",
+        "repositoryName": "sam-estepa-sl/service-webapi",
+        "repositoryUri": "085693846076.dkr.ecr.eu-west-1.amazonaws.com/sam-estepa-sl/service-webapi",
+        "createdAt": "2020-06-15T23:46:44+02:00",
+        "imageTagMutability": "MUTABLE",
+        "imageScanningConfiguration": {
+            "scanOnPush": false
+        }
+    }
+}
