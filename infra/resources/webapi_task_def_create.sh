@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd helpers
+cd ../helpers
 ./webapi_task_def.sh create
-cd ..
+cd ../resources

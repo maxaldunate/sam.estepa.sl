@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd helpers
+cd ../helpers
 ./fix_resources.sh destroy
-cd ..
+cd ../resources

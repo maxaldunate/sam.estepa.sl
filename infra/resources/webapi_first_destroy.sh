@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd helpers
+cd ../helpers
 ./webapi_first.sh destroy
-cd ..
+cd ../resources

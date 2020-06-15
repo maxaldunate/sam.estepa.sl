@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd helpers
+cd ../helpers
 ./cfn_core.sh create
-cd ..
+cd ../resources

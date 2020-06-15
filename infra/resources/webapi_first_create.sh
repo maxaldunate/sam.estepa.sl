@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
-cd helpers
+cd ../helpers
 ./webapi_first.sh create
-cd ..
+cd ../resources
