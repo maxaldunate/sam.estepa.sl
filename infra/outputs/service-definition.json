@@ -11,11 +11,11 @@
     "awsvpcConfiguration": {
       "assignPublicIp": "DISABLED",
       "securityGroups": [
-        "sg-06d07319a8b0fbb20"
+        "sg-0a042a1d666f6a911"
       ],
       "subnets": [
-        "subnet-0f12e279dce9e6853",
-        "subnet-0d87d131587d3a8c4"
+        "subnet-014ed1084806ed8a6",
+        "subnet-00b3a5d3820605b2f"
       ]
     }
   },
@@ -24,7 +24,7 @@
     {
       "containerName": "sam-estepa-sl-dev-Service",
       "containerPort": 8080,
-      "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/0e421a30c8563e2a"
+      "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/4d6a29fdf6e0379a"
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
     "taskDefinition": {
-        "taskDefinitionArn": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:11",
+        "taskDefinitionArn": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:12",
         "containerDefinitions": [
             {
                 "name": "sam-estepa-sl-dev-Service",
@@ -28,10 +28,10 @@
             }
         ],
         "family": "sam-estepa-sl-devservice",
-        "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1BRWSF5K5KFTK",
-        "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-SIHW4M4NXG6V",
+        "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1QWGONP5Q7QQ6",
+        "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-7EGIET95EHC9",
         "networkMode": "awsvpc",
-        "revision": 11,
+        "revision": 12,
         "volumes": [],
         "status": "INACTIVE",
         "requiresAttributes": [
