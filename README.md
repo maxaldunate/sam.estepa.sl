@@ -33,24 +33,27 @@ Max Aldunate
 ```
 
 ### Stack Creation
-* cd infra/resources
-* ./fix_resources_create.sh 
-* ./cfn_core_create.sh 
-* ./webapi_first_create.sh
-
-
-* ./webapi_task_def_create
-* ./frontend_deploy.sh
+```bash
+cd infra/resources
+./fix_resources_create.sh 
+./cfn_core_create.sh 
+./webapi_create.sh
+```
 
 ### Stack Destroty
-* ./webapi_first_destroy
-* ./webapi_task_def_destroy
-* ./cfn_core_destroy.sh 
-* ./fix_resources_destroy.sh 
+```bash
+cd infra/resources
+./webapi_destroy
+./cfn_core_destroy.sh 
+./fix_resources_destroy.sh 
+```
 
 ### deploy
+```bash
+cd infra
 ./frontend_deploy
 ./webapi_deploy
+```
 
 
 REVISAR webapi_first_create  separar creacion de recursos del deply de la wepapi
@@ -67,9 +70,8 @@ TASKSSSSSSSSSSSSSSSS
 * fix name on cfn to be possible to replace task.definition and other sh scripts
 
 I'M HERE
-https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#create-a-load-balancer-listener
+https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#update-mythical-mysfits-to-call-the-nlb
 
-https://github.com/aws-samples/aws-modern-application-workshop/tree/dotnet/module-2#creating-a-service-linked-role-for-ecs
 
 ## OLD DOCUMENTATION
 * In this doc
