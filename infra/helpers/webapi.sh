@@ -83,16 +83,6 @@ ecs_service_destroy() {
     ECS_SERVICE_NAME=$(grep -A2 serviceName ../outputs/webapi_ecs_service.json | grep serviceName | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
     aws ecs $AWS_PROFILE delete-service --force --service $ECS_SERVICE_NAME --cluster $PROJECT_NAME-Cluster > ../outputs/webapi_ecs_service.json
-
-    # HAY QUE ARREGLAR ESTO para que haga un describe del service 
-    # STACK_STATUS=$(aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus --output text)
-    # until [ $STACK_STATUS == "DRAINING" ]; do
-    #     sleep 30
-    #     STACK_STATUS=$(aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus --output text)
-    #     echo Current status ... $STACK_STATUS
-    # done
-    # echo Current status ... $STACK_STATUS
-
     set +x;
     echo
 }
@@ -175,6 +165,15 @@ register_ecs_task_definition_destroy() {
     set -x;
     aws ecs $AWS_PROFILE deregister-task-definition --task-definition $TASK_DEFINITION_ARN > ../outputs/webapi_ecs_task_definition.json
     set +x;
+
+    # ToDo Max. Comprobar que esto funciona bien
+    TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
+    until [ $TASK_STATUS != "INACTIVE" ]; do
+        sleep 30
+        TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
+        echo Current task status ... $TASK_STATUS
+    done
+    echo Current task status ... $STACK_STATUS
     echo
 }
 
@@ -192,6 +191,15 @@ ecs_cluster_destroy() {
     set -x;
     aws ecs $AWS_PROFILE delete-cluster --cluster $PROJECT_NAME-Cluster > ../outputs/webapi_ecs_cluster.json
     set +x;
+    
+    # ToDo Max. Comprobar que esto funciona bien
+    CLUSTER_STATUS=$(aws ecs $AWS_PROFILE describe-clusters --clusters $PROJECT_NAME-Cluster --query clusters[0].status --output text)
+    until [ $CLUSTER_STATUS != "INACTIVE" ]; do
+        sleep 30
+        CLUSTER_STATUS=$(aws ecs $AWS_PROFILE describe-clusters --clusters $PROJECT_NAME-Cluster --query clusters[0].status --output text)
+        echo Current cluster status ... $CLUSTER_STATUS
+    done
+    echo Current cluster status ... $CLUSTER_STATUS
     echo
 }
 
