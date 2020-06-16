@@ -11,9 +11,9 @@
             }
         ],
         "serviceRegistries": [],
-        "status": "ACTIVE",
-        "desiredCount": 1,
-        "runningCount": 0,
+        "status": "DRAINING",
+        "desiredCount": 0,
+        "runningCount": 1,
         "pendingCount": 0,
         "launchType": "FARGATE",
         "platformVersion": "LATEST",
@@ -27,11 +27,11 @@
                 "id": "ecs-svc/2880546829489242938",
                 "status": "PRIMARY",
                 "taskDefinition": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:11",
-                "desiredCount": 1,
+                "desiredCount": 0,
                 "pendingCount": 0,
-                "runningCount": 0,
+                "runningCount": 1,
                 "createdAt": "2020-06-16T21:22:02.926000+02:00",
-                "updatedAt": "2020-06-16T21:22:02.926000+02:00",
+                "updatedAt": "2020-06-16T21:30:15.837000+02:00",
                 "launchType": "FARGATE",
                 "platformVersion": "1.3.0",
                 "networkConfiguration": {
@@ -49,7 +49,38 @@
             }
         ],
         "roleArn": "arn:aws:iam::085693846076:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
-        "events": [],
+        "events": [
+            {
+                "id": "65d65ad4-14f9-46cc-b2da-3908c1c497cd",
+                "createdAt": "2020-06-16T21:30:15.862000+02:00",
+                "message": "(service sam-estepa-sl-dev-Service) has reached a steady state."
+            },
+            {
+                "id": "0e152ffd-eea9-4b25-8dd3-fb87ba555223",
+                "createdAt": "2020-06-16T21:26:38.076000+02:00",
+                "message": "(service sam-estepa-sl-dev-Service) registered 1 targets in (target-group arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/0e421a30c8563e2a)"
+            },
+            {
+                "id": "81e43011-2c93-4ba0-9ff2-27e7fd91816e",
+                "createdAt": "2020-06-16T21:26:03.918000+02:00",
+                "message": "(service sam-estepa-sl-dev-Service) has started 1 tasks: (task 3f4c8f51-ed3d-4e34-b6d4-3f4c607738cc)."
+            },
+            {
+                "id": "a1b33e38-149e-4e6f-8005-9bbb4916464a",
+                "createdAt": "2020-06-16T21:24:47.016000+02:00",
+                "message": "(service sam-estepa-sl-dev-Service) has started 1 tasks: (task baa7d882-d391-46eb-8c05-bd694edcbaef)."
+            },
+            {
+                "id": "d77bf93e-d44f-4ccd-af2f-39d06d17fa93",
+                "createdAt": "2020-06-16T21:23:32.496000+02:00",
+                "message": "(service sam-estepa-sl-dev-Service) has started 1 tasks: (task 094e58a5-c13b-49a6-a024-56e146dbedf0)."
+            },
+            {
+                "id": "0a8d40ea-7f02-471f-834c-c30c00190b2c",
+                "createdAt": "2020-06-16T21:22:06.413000+02:00",
+                "message": "(service sam-estepa-sl-dev-Service) has started 1 tasks: (task 8e793192-22dc-474d-beac-ccd58c60602f)."
+            }
+        ],
         "createdAt": "2020-06-16T21:22:02.926000+02:00",
         "placementConstraints": [],
         "placementStrategy": [],

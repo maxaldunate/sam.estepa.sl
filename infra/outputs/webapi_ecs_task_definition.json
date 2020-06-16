@@ -33,7 +33,7 @@
         "networkMode": "awsvpc",
         "revision": 11,
         "volumes": [],
-        "status": "ACTIVE",
+        "status": "INACTIVE",
         "requiresAttributes": [
             {
                 "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
