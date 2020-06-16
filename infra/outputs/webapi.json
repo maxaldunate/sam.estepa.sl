@@ -1,15 +1,17 @@
 {
    "ECSClusterName": "sam-estepa-sl-dev-Cluster",
    "CloudWatchLogsGroup": "sam-estepa-sl-dev-logs",
-   "FARGATE_CONTAINER_SECURITY_GROUP": "sg-0f489caeaf6b43761",
-   "PRIVATE_SUBNET_ONE": "subnet-03588865bb757ad93",
-   "PRIVATE_SUBNET_TWO": "subnet-074fc98c68646133d",
-   "PUBLIC_SUBNET_ONE": "subnet-0baf0752fbe21f44a",
-   "PUBLIC_SUBNET_TWO": "subnet-0533e8c318319c53e",
-   "ECS_CLUSTER_ARN": "",
-   "VPC_ID": "vpc-0bd197d05dee0fa23",
-   "NLB_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29",
-   "NLB_TARGET_GROUP_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/ba100c2a6a297676",
-   "NLB_LISTENER_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29/25e6bf07ab1a8c0c",
-   "TASK_DEFINITION_ARN": ""
+   "FARGATE_CONTAINER_SECURITY_GROUP": "sg-05d220d025aba99c9",
+   "PRIVATE_SUBNET_ONE": "subnet-0d2d849e3c711ba8d",
+   "PRIVATE_SUBNET_TWO": "subnet-09cb8f10f4883c4bd",
+   "PUBLIC_SUBNET_ONE": "subnet-06a310073be247d22",
+   "PUBLIC_SUBNET_TWO": "subnet-040baf526bb07a234",
+   "ECS_CLUSTER_ARN": "arn:aws:ecs:eu-west-1:085693846076:cluster/sam-estepa-sl-dev-Cluster",
+   "VPC_ID": "vpc-06514b3ceac03cd0c",
+   "NLB_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/abe2f3737c626ab1",
+   "NLB_TARGET_GROUP_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/9d576eba33181b40",
+   "NLB_LISTENER_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/abe2f3737c626ab1/3a0d5ded90dd576e",
+   "TASK_DEFINITION_ARN": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:3",
+   "ECS_SERVICE_ROLE_ARN": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-665WB4H7VHQL",
+   "ECS_TASK_ROLE_ARN": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-14PNEWRJTGRO4"
 }

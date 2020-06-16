@@ -1,26 +1,26 @@
 {
     "LoadBalancers": [
         {
-            "LoadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29",
-            "DNSName": "sam-estepa-sl-dev-nlb-27f6aef0ad2eac29.elb.eu-west-1.amazonaws.com",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/abe2f3737c626ab1",
+            "DNSName": "sam-estepa-sl-dev-nlb-abe2f3737c626ab1.elb.eu-west-1.amazonaws.com",
             "CanonicalHostedZoneId": "Z2IFOLAFXWLO4F",
-            "CreatedTime": "2020-06-15T21:36:58.991000+00:00",
+            "CreatedTime": "2020-06-16T14:49:26.900000+00:00",
             "LoadBalancerName": "sam-estepa-sl-dev-nlb",
             "Scheme": "internet-facing",
-            "VpcId": "vpc-0bd197d05dee0fa23",
+            "VpcId": "vpc-06514b3ceac03cd0c",
             "State": {
                 "Code": "provisioning"
             },
             "Type": "network",
             "AvailabilityZones": [
                 {
-                    "ZoneName": "eu-west-1a",
-                    "SubnetId": "subnet-0baf0752fbe21f44a",
+                    "ZoneName": "eu-west-1b",
+                    "SubnetId": "subnet-040baf526bb07a234",
                     "LoadBalancerAddresses": []
                 },
                 {
-                    "ZoneName": "eu-west-1b",
-                    "SubnetId": "subnet-0533e8c318319c53e",
+                    "ZoneName": "eu-west-1a",
+                    "SubnetId": "subnet-06a310073be247d22",
                     "LoadBalancerAddresses": []
                 }
             ],

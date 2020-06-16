@@ -6,8 +6,8 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "executionRoleArn": "",
-  "taskRoleArn": "",
+  "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-665WB4H7VHQL",
+  "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-14PNEWRJTGRO4",
   "containerDefinitions": [
     {
       "name": "sam-estepa-sl-dev-Service",
