@@ -1,6 +1,6 @@
 {
     "taskDefinition": {
-        "taskDefinitionArn": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:10",
+        "taskDefinitionArn": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:11",
         "containerDefinitions": [
             {
                 "name": "sam-estepa-sl-dev-Service",
@@ -28,12 +28,12 @@
             }
         ],
         "family": "sam-estepa-sl-devservice",
-        "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1SLA3VO83JWNY",
-        "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-1AAD01DZZVERT",
+        "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1BRWSF5K5KFTK",
+        "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-SIHW4M4NXG6V",
         "networkMode": "awsvpc",
-        "revision": 10,
+        "revision": 11,
         "volumes": [],
-        "status": "INACTIVE",
+        "status": "ACTIVE",
         "requiresAttributes": [
             {
                 "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"

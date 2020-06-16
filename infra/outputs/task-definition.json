@@ -6,8 +6,8 @@
   "requiresCompatibilities": [
     "FARGATE"
   ],
-  "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-1AAD01DZZVERT",
-  "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1SLA3VO83JWNY",
+  "executionRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-SIHW4M4NXG6V",
+  "taskRoleArn": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1BRWSF5K5KFTK",
   "containerDefinitions": [
     {
       "name": "sam-estepa-sl-dev-Service",
