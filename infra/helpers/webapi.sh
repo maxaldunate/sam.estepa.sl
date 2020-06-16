@@ -12,6 +12,7 @@ ECS_CLUSTER_ARN=""
 NLB_ARN=""
 NLB_TARGET_GROUP_ARN=""
 NLB_LISTENER_ARN=""
+NLB_DNS_NAME=""
 VPC_ID=""
 
 TASK_DEFINITION_ARN=""
@@ -22,6 +23,7 @@ ECS_SERVICE_ARN=""
 
 outputs() {
     echo "{" > ../outputs/webapi.json
+    echo "   \"NLB_DNS_NAME\": \"$NLB_DNS_NAME-Cluster\"," >> ../outputs/webapi.json
     echo "   \"ECSClusterName\": \"$PROJECT_NAME-Cluster\"," >> ../outputs/webapi.json
     echo "   \"CloudWatchLogsGroup\": \"$PROJECT_NAME-logs\"," >> ../outputs/webapi.json
     echo "   \"FARGATE_CONTAINER_SECURITY_GROUP\": \"$FARGATE_CONTAINER_SECURITY_GROUP\"," >> ../outputs/webapi.json
@@ -101,6 +103,7 @@ load_balancer_create() {
     aws elbv2 $AWS_PROFILE create-load-balancer --name $PROJECT_NAME-nlb --scheme internet-facing --type network --subnets $PUBLIC_SUBNET_ONE $PUBLIC_SUBNET_TWO > ../outputs/webapi_nlb.json
     set +x;
     NLB_ARN=$(grep -A2 LoadBalancerArn ../outputs/webapi_nlb.json | grep LoadBalancerArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    NLB_DNS_NAME=$(grep -A2 DNSName ../outputs/webapi_nlb.json | grep DNSName | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
 
     echo $LINE Create NLB Target Group
     set -x;
@@ -220,7 +223,7 @@ destroy() {
     load_balancer_destroy
     cloudwatch_logs_group_destroy
     ecs_cluster_destroy
-    
+
     outputs
 }
 
