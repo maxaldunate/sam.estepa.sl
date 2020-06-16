@@ -23,7 +23,7 @@ ECS_SERVICE_ARN=""
 
 outputs() {
     echo "{" > ../outputs/webapi.json
-    echo "   \"NLB_DNS_NAME\": \"$NLB_DNS_NAME-Cluster\"," >> ../outputs/webapi.json
+    echo "   \"NLB_DNS_NAME\": \"$NLB_DNS_NAME\"," >> ../outputs/webapi.json
     echo "   \"ECSClusterName\": \"$PROJECT_NAME-Cluster\"," >> ../outputs/webapi.json
     echo "   \"CloudWatchLogsGroup\": \"$PROJECT_NAME-logs\"," >> ../outputs/webapi.json
     echo "   \"FARGATE_CONTAINER_SECURITY_GROUP\": \"$FARGATE_CONTAINER_SECURITY_GROUP\"," >> ../outputs/webapi.json
@@ -62,16 +62,16 @@ get_variables_from_cfn_core() {
 ecs_service_create() {
     echo $LINE Create ECS Service
 
-    cp service-definition.to.replace.json service-definition.json
+    cp service-definition.to.replace.json ../outputs/service-definition.json
 
-    sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" service-definition.json
-    sed -i "s/REPLACE_ME_SG_ID/$FARGATE_CONTAINER_SECURITY_GROUP/g" service-definition.json
-    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_ONE/$PRIVATE_SUBNET_ONE/g" service-definition.json
-    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_TWO/$PRIVATE_SUBNET_TWO/g" service-definition.json
-    sed -i "s,REPLACE_ME_NLB_TARGET_GROUP_ARN,$NLB_TARGET_GROUP_ARN,g" service-definition.json
+    sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" ../outputs/service-definition.json
+    sed -i "s/REPLACE_ME_SG_ID/$FARGATE_CONTAINER_SECURITY_GROUP/g" ../outputs/service-definition.json
+    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_ONE/$PRIVATE_SUBNET_ONE/g" ../outputs/service-definition.json
+    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_TWO/$PRIVATE_SUBNET_TWO/g" ../outputs/service-definition.json
+    sed -i "s,REPLACE_ME_NLB_TARGET_GROUP_ARN,$NLB_TARGET_GROUP_ARN,g" ../outputs/service-definition.json
 
     set -x;
-    aws ecs $AWS_PROFILE create-service --cli-input-json file://service-definition.json > ../outputs/webapi_ecs_service.json
+    aws ecs $AWS_PROFILE create-service --cli-input-json file://../outputs/service-definition.json > ../outputs/webapi_ecs_service.json
     set +x;
     ECS_SERVICE_NAME=$(grep -A2 serviceName ../outputs/webapi_ecs_service.json | grep serviceName | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     ECS_SERVICE_ARN=$(grep -A2 serviceArn ../outputs/webapi_ecs_service.json | grep serviceArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
@@ -83,6 +83,16 @@ ecs_service_destroy() {
     ECS_SERVICE_NAME=$(grep -A2 serviceName ../outputs/webapi_ecs_service.json | grep serviceName | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
     aws ecs $AWS_PROFILE delete-service --force --service $ECS_SERVICE_NAME --cluster $PROJECT_NAME-Cluster > ../outputs/webapi_ecs_service.json
+
+    # HAY QUE ARREGLAR ESTO para que haga un describe del service 
+    # STACK_STATUS=$(aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus --output text)
+    # until [ $STACK_STATUS == "DRAINING" ]; do
+    #     sleep 30
+    #     STACK_STATUS=$(aws cloudformation $AWS_PROFILE describe-stacks --stack-name $CFN_STACK_NAME --query Stacks[0].StackStatus --output text)
+    #     echo Current status ... $STACK_STATUS
+    # done
+    # echo Current status ... $STACK_STATUS
+
     set +x;
     echo
 }
@@ -144,17 +154,17 @@ load_balancer_destroy() {
 register_ecs_task_definition_create() {
     echo $LINE Register an ECS Task Definition
 
-    cp task-definition.to.replace.json task-definition.json
+    cp task-definition.to.replace.json ../outputs/task-definition.json
 
-    sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" task-definition.json
-    sed -i "s/REPLACE_ME_REGION/$AWS_REGION/g" task-definition.json
-    sed -i "s,REPLACE_ME_IMAGE_TAG_USED_IN_ECR_PUSH,$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/sam-estepa-sl/service-webapi:latest,g" task-definition.json
+    sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" ../outputs/task-definition.json
+    sed -i "s/REPLACE_ME_REGION/$AWS_REGION/g" ../outputs/task-definition.json
+    sed -i "s,REPLACE_ME_IMAGE_TAG_USED_IN_ECR_PUSH,$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/sam-estepa-sl/service-webapi:latest,g" ../outputs/task-definition.json
     
-    sed -i "s,REPLACE_ME_ECS_SERVICE_ROLE_ARN,$ECS_SERVICE_ROLE_ARN,g" task-definition.json
-    sed -i "s,REPLACE_ME_ECS_TASK_ROLE_ARN,$ECS_TASK_ROLE_ARN,g" task-definition.json
+    sed -i "s,REPLACE_ME_ECS_SERVICE_ROLE_ARN,$ECS_SERVICE_ROLE_ARN,g" ../outputs/task-definition.json
+    sed -i "s,REPLACE_ME_ECS_TASK_ROLE_ARN,$ECS_TASK_ROLE_ARN,g" ../outputs/task-definition.json
 
     set -x;
-    aws ecs $AWS_PROFILE register-task-definition --cli-input-json file://task-definition.json > ../outputs/webapi_ecs_task_definition.json
+    aws ecs $AWS_PROFILE register-task-definition --cli-input-json file://../outputs/task-definition.json > ../outputs/webapi_ecs_task_definition.json
     set +x;
     TASK_DEFINITION_ARN=$(grep -A2 taskDefinitionArn ../outputs/webapi_ecs_task_definition.json | grep taskDefinitionArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     echo
