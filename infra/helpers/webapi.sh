@@ -15,6 +15,8 @@ NLB_LISTENER_ARN=""
 VPC_ID=""
 
 TASK_DEFINITION_ARN=""
+ECS_SERVICE_ROLE_ARN=""
+ECS_TASK_ROLE_ARN=""
 
 outputs() {
     echo "{" > ../outputs/webapi.json
@@ -33,7 +35,9 @@ outputs() {
     echo "   \"NLB_TARGET_GROUP_ARN\": \"$NLB_TARGET_GROUP_ARN\"," >> ../outputs/webapi.json
     echo "   \"NLB_LISTENER_ARN\": \"$NLB_LISTENER_ARN\"," >> ../outputs/webapi.json
     
-    echo "   \"TASK_DEFINITION_ARN\": \"$TASK_DEFINITION_ARN\"" >> ../outputs/webapi.json
+    echo "   \"TASK_DEFINITION_ARN\": \"$TASK_DEFINITION_ARN\"," >> ../outputs/webapi.json
+    echo "   \"ECS_SERVICE_ROLE_ARN\": \"$ECS_SERVICE_ROLE_ARN\"," >> ../outputs/webapi.json
+    echo "   \"ECS_TASK_ROLE_ARN\": \"$ECS_TASK_ROLE_ARN\"" >> ../outputs/webapi.json
     echo "}" >> ../outputs/webapi.json
     echo
 }
@@ -45,6 +49,8 @@ get_variables_from_cfn_core() {
     PRIVATE_SUBNET_TWO=$(grep -A2 PrivateSubnetTwo ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     PUBLIC_SUBNET_ONE=$(grep -A2 PublicSubnetOne ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     PUBLIC_SUBNET_TWO=$(grep -A2 PublicSubnetTwo ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    ECS_SERVICE_ROLE_ARN=$(grep -A2 EcsServiceRole ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    ECS_TASK_ROLE_ARN=$(grep -A2 ECSTaskRole ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
 }
 
 load_balancer_create() {
@@ -116,8 +122,8 @@ register_ecs_task_definition_create() {
     sed -i "s/REPLACE_ME_REGION/$AWS_REGION/g" task-definition.json
     sed -i "s,REPLACE_ME_IMAGE_TAG_USED_IN_ECR_PUSH,$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/sam-estepa-sl/service-webapi:latest,g" task-definition.json
     
-    sed -i "s,REPLACE_ME_ECS_SERVICE_ROLE_ARN,,g" task-definition.json
-    sed -i "s,REPLACE_ME_ECS_TASK_ROLE_ARN,,g" task-definition.json
+    sed -i "s,REPLACE_ME_ECS_SERVICE_ROLE_ARN,$ECS_SERVICE_ROLE_ARN,g" task-definition.json
+    sed -i "s,REPLACE_ME_ECS_TASK_ROLE_ARN,$ECS_TASK_ROLE_ARN,g" task-definition.json
 
     set -x;
     aws ecs $AWS_PROFILE register-task-definition --cli-input-json file://task-definition.json > ../outputs/webapi_ecs_task_definition.json
@@ -129,7 +135,7 @@ register_ecs_task_definition_destroy() {
     echo $LINE Deregister an ECS Task Definition
     TASK_DEFINITION_ARN=$(grep -A2 taskDefinitionArn ../outputs/webapi_ecs_task_definition.json | grep taskDefinitionArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
-    aws ecs $AWS_PROFILE deregister-task-definition --task-definition $TASK_DEFINITION_ARN
+    aws ecs $AWS_PROFILE deregister-task-definition --task-definition $TASK_DEFINITION_ARN > ../outputs/webapi_ecs_task_definition.json
     set +x;
     echo
 }
