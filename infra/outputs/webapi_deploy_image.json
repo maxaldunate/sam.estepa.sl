@@ -1,0 +1,14 @@
+{
+    "imageDetails": [
+        {
+            "registryId": "085693846076",
+            "repositoryName": "sam-estepa-sl/service-webapi",
+            "imageDigest": "sha256:02939f739b1f6d7e4410f93e4bed7e290175738e43d870e49b88cb0f72ff976f",
+            "imageTags": [
+                "latest"
+            ],
+            "imageSizeInBytes": 44812552,
+            "imagePushedAt": "2020-06-16T19:20:57+02:00"
+        }
+    ]
+}

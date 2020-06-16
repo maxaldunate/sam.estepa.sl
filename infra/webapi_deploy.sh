@@ -1,9 +1,8 @@
 #!/usr/bin/env bash
-source variables.sh
+source helpers/variables.sh
 
 build_api() {	
     echo $LINE Building webapi	
-    cd ../${WEBAPI_PATH} && \	
     set -x;	
     docker build . -t $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/sam-estepa-sl/service-webapi:latest	
     set +x;	
@@ -29,10 +28,12 @@ push_docker_webapi_image() {
     echo	
     echo $LINE Check	
     set -x;	
-    aws ecr $AWS_PROFILE describe-images --repository-name sam-estepa-sl/service-webapi	
+    aws ecr $AWS_PROFILE describe-images --repository-name sam-estepa-sl/service-webapi	> outputs/webapi_deploy_image.json
     set +x;	
 }
 
+cd ${WEBAPI_PATH} && \	
 build_api	
 run_local_docker_webapi	
+cd ../infra
 push_docker_webapi_image
