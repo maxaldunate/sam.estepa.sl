@@ -82,7 +82,7 @@ ecs_service_destroy() {
     echo $LINE Destroy ECS Service
     ECS_SERVICE_NAME=$(grep -A2 serviceName ../outputs/webapi_ecs_service.json | grep serviceName | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
-    aws ecs $AWS_PROFILE delete-service --service $ECS_SERVICE_NAME --cluster $ECS_CLUSTER_ARN > ../outputs/webapi_ecs_service.json
+    aws ecs $AWS_PROFILE delete-service --force --service $ECS_SERVICE_NAME --cluster $PROJECT_NAME-Cluster > ../outputs/webapi_ecs_service.json
     set +x;
     echo
 }
