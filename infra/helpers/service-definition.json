@@ -1,0 +1,30 @@
+{
+  "serviceName": "sam-estepa-sl-dev-Service",
+  "cluster": "sam-estepa-sl-dev-Cluster",
+  "launchType": "FARGATE",
+  "deploymentConfiguration": {
+    "maximumPercent": 200,
+    "minimumHealthyPercent": 0
+  },
+  "desiredCount": 1,
+  "networkConfiguration": {
+    "awsvpcConfiguration": {
+      "assignPublicIp": "DISABLED",
+      "securityGroups": [
+        "sg-04fa27110c9f9230b"
+      ],
+      "subnets": [
+        "subnet-0bd35ad60c0169b53",
+        "subnet-08be46f3c1e6a1c5d"
+      ]
+    }
+  },
+  "taskDefinition": "sam-estepa-sl-devservice",
+  "loadBalancers": [
+    {
+      "containerName": "sam-estepa-sl-dev-Service",
+      "containerPort": 8080,
+      "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/887a14baed94203a"
+    }
+  ]
+}
