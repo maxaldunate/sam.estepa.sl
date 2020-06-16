@@ -1,30 +1,32 @@
 {
-  "serviceName": "sam-estepa-sl-dev-Service",
-  "cluster": "sam-estepa-sl-dev-Cluster",
-  "launchType": "FARGATE",
-  "deploymentConfiguration": {
-    "maximumPercent": 200,
-    "minimumHealthyPercent": 0
-  },
-  "desiredCount": 1,
-  "networkConfiguration": {
-    "awsvpcConfiguration": {
-      "assignPublicIp": "DISABLED",
-      "securityGroups": [
-        "sg-0f489caeaf6b43761"
-      ],
-      "subnets": [
-        "subnet-03588865bb757ad93",
-        "subnet-074fc98c68646133d"
-      ]
-    }
-  },
-  "taskDefinition": "sam-estepa-sl-devservice",
-  "loadBalancers": [
+  "family": "sam-estepa-sl-devservice",
+  "cpu": "256",
+  "memory": "512",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "executionRoleArn": "",
+  "taskRoleArn": "",
+  "containerDefinitions": [
     {
-      "containerName": "sam-estepa-sl-dev-Service",
-      "containerPort": 8080,
-      "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/ba100c2a6a297676"
+      "name": "sam-estepa-sl-dev-Service",
+      "image": "085693846076.dkr.ecr.eu-west-1.amazonaws.com/sam-estepa-sl/service-webapi:latest",
+      "portMappings": [
+        {
+          "containerPort": 8080,
+          "protocol": "http"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "sam-estepa-sl-dev-logs",
+          "awslogs-region": "eu-west-1",
+          "awslogs-stream-prefix": "awslogs-sam-estepa-sl-dev-service"
+        }
+      },
+      "essential": true
     }
   ]
 }

@@ -14,6 +14,8 @@ NLB_TARGET_GROUP_ARN=""
 NLB_LISTENER_ARN=""
 VPC_ID=""
 
+TASK_DEFINITION_ARN=""
+
 outputs() {
     echo "{" > ../outputs/webapi.json
     echo "   \"ECSClusterName\": \"$PROJECT_NAME-Cluster\"," >> ../outputs/webapi.json
@@ -29,7 +31,9 @@ outputs() {
 
     echo "   \"NLB_ARN\": \"$NLB_ARN\"," >> ../outputs/webapi.json
     echo "   \"NLB_TARGET_GROUP_ARN\": \"$NLB_TARGET_GROUP_ARN\"," >> ../outputs/webapi.json
-    echo "   \"NLB_LISTENER_ARN\": \"$NLB_LISTENER_ARN\"" >> ../outputs/webapi.json
+    echo "   \"NLB_LISTENER_ARN\": \"$NLB_LISTENER_ARN\"," >> ../outputs/webapi.json
+    
+    echo "   \"TASK_DEFINITION_ARN\": \"$TASK_DEFINITION_ARN\"" >> ../outputs/webapi.json
     echo "}" >> ../outputs/webapi.json
     echo
 }
@@ -104,22 +108,28 @@ service_definition_create() {
 }
 
 register_ecs_task_definition_create() {
-    echo ------------- Register an ECS Task Definition
+    echo $LINE Register an ECS Task Definition
 
     cp task-definition.to.replace.json task-definition.json
 
-REEMPLAZAR LOS VALORES QUE TOQUE
+    sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" task-definition.json
+    sed -i "s/REPLACE_ME_REGION/$AWS_REGION/g" task-definition.json
+    sed -i "s,REPLACE_ME_IMAGE_TAG_USED_IN_ECR_PUSH,$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/sam-estepa-sl/service-webapi:latest,g" task-definition.json
+    
+    sed -i "s,REPLACE_ME_ECS_SERVICE_ROLE_ARN,,g" task-definition.json
+    sed -i "s,REPLACE_ME_ECS_TASK_ROLE_ARN,,g" task-definition.json
 
     set -x;
     aws ecs $AWS_PROFILE register-task-definition --cli-input-json file://task-definition.json > ../outputs/webapi_ecs_task_definition.json
     set +x;
+    TASK_DEFINITION_ARN=$(grep -A2 taskDefinitionArn ../outputs/webapi_ecs_task_definition.json | grep taskDefinitionArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     echo
 }
 register_ecs_task_definition_destroy() {
-    echo ------------- Deregister an ECS Task Definition
+    echo $LINE Deregister an ECS Task Definition
+    TASK_DEFINITION_ARN=$(grep -A2 taskDefinitionArn ../outputs/webapi_ecs_task_definition.json | grep taskDefinitionArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
-    aws ecs $AWS_PROFILE deregister-task-definition --task-definition 
-    # ToDo Max. The family and revision (family:revision ) or full Amazon Resource Name (ARN) of the task definition to deregister. You must specify a revision .
+    aws ecs $AWS_PROFILE deregister-task-definition --task-definition $TASK_DEFINITION_ARN
     set +x;
     echo
 }
@@ -167,7 +177,7 @@ create() {
 
 destroy() {
     get_variables_from_cfn_core
-    #register_ecs_task_definition_destroy
+    register_ecs_task_definition_destroy
     load_balancer_destroy
     cloudwatch_logs_group_destroy
     ecs_cluster_destroy

@@ -10,5 +10,6 @@
    "VPC_ID": "vpc-0bd197d05dee0fa23",
    "NLB_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29",
    "NLB_TARGET_GROUP_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/ba100c2a6a297676",
-   "NLB_LISTENER_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29/25e6bf07ab1a8c0c"
+   "NLB_LISTENER_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/27f6aef0ad2eac29/25e6bf07ab1a8c0c",
+   "TASK_DEFINITION_ARN": ""
 }
