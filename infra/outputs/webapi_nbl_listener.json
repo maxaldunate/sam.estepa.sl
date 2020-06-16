@@ -1,18 +1,18 @@
 {
     "Listeners": [
         {
-            "ListenerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/68cd4fb82a298daf/a157399b9caef9f9",
-            "LoadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/68cd4fb82a298daf",
+            "ListenerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/82f74c8c1d79ad71/6d4cbe35cc811abd",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/82f74c8c1d79ad71",
             "Port": 80,
             "Protocol": "TCP",
             "DefaultActions": [
                 {
                     "Type": "forward",
-                    "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/887a14baed94203a",
+                    "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/49d69b92b4d54596",
                     "ForwardConfig": {
                         "TargetGroups": [
                             {
-                                "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/887a14baed94203a"
+                                "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/49d69b92b4d54596"
                             }
                         ]
                     }

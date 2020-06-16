@@ -1,0 +1,73 @@
+{
+    "service": {
+        "serviceArn": "arn:aws:ecs:eu-west-1:085693846076:service/sam-estepa-sl-dev-Service",
+        "serviceName": "sam-estepa-sl-dev-Service",
+        "clusterArn": "arn:aws:ecs:eu-west-1:085693846076:cluster/sam-estepa-sl-dev-Cluster",
+        "loadBalancers": [
+            {
+                "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/49d69b92b4d54596",
+                "containerName": "sam-estepa-sl-dev-Service",
+                "containerPort": 8080
+            }
+        ],
+        "serviceRegistries": [],
+        "status": "ACTIVE",
+        "desiredCount": 1,
+        "runningCount": 0,
+        "pendingCount": 0,
+        "launchType": "FARGATE",
+        "platformVersion": "LATEST",
+        "taskDefinition": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:10",
+        "deploymentConfiguration": {
+            "maximumPercent": 200,
+            "minimumHealthyPercent": 0
+        },
+        "deployments": [
+            {
+                "id": "ecs-svc/1546950023330056929",
+                "status": "PRIMARY",
+                "taskDefinition": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:10",
+                "desiredCount": 1,
+                "pendingCount": 0,
+                "runningCount": 0,
+                "createdAt": "2020-06-16T19:12:44.036000+02:00",
+                "updatedAt": "2020-06-16T19:12:44.036000+02:00",
+                "launchType": "FARGATE",
+                "platformVersion": "1.3.0",
+                "networkConfiguration": {
+                    "awsvpcConfiguration": {
+                        "subnets": [
+                            "subnet-0bd35ad60c0169b53",
+                            "subnet-08be46f3c1e6a1c5d"
+                        ],
+                        "securityGroups": [
+                            "sg-04fa27110c9f9230b"
+                        ],
+                        "assignPublicIp": "DISABLED"
+                    }
+                }
+            }
+        ],
+        "roleArn": "arn:aws:iam::085693846076:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
+        "events": [],
+        "createdAt": "2020-06-16T19:12:44.036000+02:00",
+        "placementConstraints": [],
+        "placementStrategy": [],
+        "networkConfiguration": {
+            "awsvpcConfiguration": {
+                "subnets": [
+                    "subnet-0bd35ad60c0169b53",
+                    "subnet-08be46f3c1e6a1c5d"
+                ],
+                "securityGroups": [
+                    "sg-04fa27110c9f9230b"
+                ],
+                "assignPublicIp": "DISABLED"
+            }
+        },
+        "healthCheckGracePeriodSeconds": 0,
+        "schedulingStrategy": "REPLICA",
+        "enableECSManagedTags": false,
+        "propagateTags": "NONE"
+    }
+}

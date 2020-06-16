@@ -1,15 +1,15 @@
 {
     "LoadBalancers": [
         {
-            "LoadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/68cd4fb82a298daf",
-            "DNSName": "sam-estepa-sl-dev-nlb-68cd4fb82a298daf.elb.eu-west-1.amazonaws.com",
+            "LoadBalancerArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/82f74c8c1d79ad71",
+            "DNSName": "sam-estepa-sl-dev-nlb-82f74c8c1d79ad71.elb.eu-west-1.amazonaws.com",
             "CanonicalHostedZoneId": "Z2IFOLAFXWLO4F",
-            "CreatedTime": "2020-06-16T17:02:25.109000+00:00",
+            "CreatedTime": "2020-06-16T17:12:38.898000+00:00",
             "LoadBalancerName": "sam-estepa-sl-dev-nlb",
             "Scheme": "internet-facing",
             "VpcId": "vpc-057894560968db476",
             "State": {
-                "Code": "active"
+                "Code": "provisioning"
             },
             "Type": "network",
             "AvailabilityZones": [

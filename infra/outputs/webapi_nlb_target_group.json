@@ -1,7 +1,7 @@
 {
     "TargetGroups": [
         {
-            "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/887a14baed94203a",
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/49d69b92b4d54596",
             "TargetGroupName": "sam-estepa-sl-dev-TargetGroup",
             "Protocol": "TCP",
             "Port": 8080,

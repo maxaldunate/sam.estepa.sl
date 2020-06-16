@@ -8,12 +8,12 @@
    "PUBLIC_SUBNET_TWO": "subnet-08606c969a2b136f0",
    "ECS_CLUSTER_ARN": "arn:aws:ecs:eu-west-1:085693846076:cluster/sam-estepa-sl-dev-Cluster",
    "VPC_ID": "vpc-057894560968db476",
-   "NLB_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/68cd4fb82a298daf",
-   "NLB_TARGET_GROUP_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/887a14baed94203a",
-   "NLB_LISTENER_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/68cd4fb82a298daf/a157399b9caef9f9",
-   "TASK_DEFINITION_ARN": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:9",
+   "NLB_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:loadbalancer/net/sam-estepa-sl-dev-nlb/82f74c8c1d79ad71",
+   "NLB_TARGET_GROUP_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/49d69b92b4d54596",
+   "NLB_LISTENER_ARN": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:listener/net/sam-estepa-sl-dev-nlb/82f74c8c1d79ad71/6d4cbe35cc811abd",
+   "TASK_DEFINITION_ARN": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:10",
    "ECS_SERVICE_ROLE_ARN": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-1AAD01DZZVERT",
    "ECS_TASK_ROLE_ARN": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1SLA3VO83JWNY",
-   "ECS_SERVICE_NAME": "",
-   "ECS_SERVICE_ARN": ""
+   "ECS_SERVICE_NAME": "sam-estepa-sl-dev-Service",
+   "ECS_SERVICE_ARN": "arn:aws:ecs:eu-west-1:085693846076:service/sam-estepa-sl-dev-Service"
 }
