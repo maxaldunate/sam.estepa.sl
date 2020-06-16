@@ -17,6 +17,8 @@ VPC_ID=""
 TASK_DEFINITION_ARN=""
 ECS_SERVICE_ROLE_ARN=""
 ECS_TASK_ROLE_ARN=""
+ECS_SERVICE_NAME=""
+ECS_SERVICE_ARN=""
 
 outputs() {
     echo "{" > ../outputs/webapi.json
@@ -37,7 +39,9 @@ outputs() {
     
     echo "   \"TASK_DEFINITION_ARN\": \"$TASK_DEFINITION_ARN\"," >> ../outputs/webapi.json
     echo "   \"ECS_SERVICE_ROLE_ARN\": \"$ECS_SERVICE_ROLE_ARN\"," >> ../outputs/webapi.json
-    echo "   \"ECS_TASK_ROLE_ARN\": \"$ECS_TASK_ROLE_ARN\"" >> ../outputs/webapi.json
+    echo "   \"ECS_TASK_ROLE_ARN\": \"$ECS_TASK_ROLE_ARN\"," >> ../outputs/webapi.json
+    echo "   \"ECS_SERVICE_NAME\": \"$ECS_SERVICE_NAME\"," >> ../outputs/webapi.json
+    echo "   \"ECS_SERVICE_ARN\": \"$ECS_SERVICE_ARN\"" >> ../outputs/webapi.json
     echo "}" >> ../outputs/webapi.json
     echo
 }
@@ -51,6 +55,44 @@ get_variables_from_cfn_core() {
     PUBLIC_SUBNET_TWO=$(grep -A2 PublicSubnetTwo ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     ECS_SERVICE_ROLE_ARN=$(grep -A2 EcsServiceRole ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     ECS_TASK_ROLE_ARN=$(grep -A2 ECSTaskRole ../outputs/cfn_core.json | grep OutputValue | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+}
+
+ecs_service_create() {
+    echo $LINE Create ECS Service
+
+    cp service-definition.to.replace.json service-definition.json
+
+    sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" service-definition.json
+    sed -i "s/REPLACE_ME_SG_ID/$FARGATE_CONTAINER_SECURITY_GROUP/g" service-definition.json
+    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_ONE/$PRIVATE_SUBNET_ONE/g" service-definition.json
+    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_TWO/$PRIVATE_SUBNET_TWO/g" service-definition.json
+    sed -i "s,REPLACE_ME_NLB_TARGET_GROUP_ARN,$NLB_TARGET_GROUP_ARN,g" service-definition.json
+
+    set -x;
+    aws ecs $AWS_PROFILE create-service --cli-input-json file://service-definition.json > ../outputs/webapi_ecs_service.json
+    set +x;
+    ECS_SERVICE_NAME=$(grep -A2 serviceName ../outputs/webapi_ecs_service.json | grep serviceName | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    ECS_SERVICE_ARN=$(grep -A2 serviceArn ../outputs/webapi_ecs_service.json | grep serviceArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+
+    echo
+}
+ecs_service_destroy() {
+    echo $LINE Destroy ECS Service
+    ECS_SERVICE_NAME=$(grep -A2 serviceName ../outputs/webapi_ecs_service.json | grep serviceName | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
+    set -x;
+    aws ecs $AWS_PROFILE delete-service --service $ECS_SERVICE_NAME --cluster $ECS_CLUSTER_ARN > ../outputs/webapi_ecs_service.json
+    set +x;
+    echo
+}
+
+service_linked_role_create() {
+    echo $LINE Service Linked Role Create
+    set -x;
+    aws iam $AWS_PROFILE create-service-linked-role --aws-service-name ecs.amazonaws.com
+    set +x;
+}
+service_linked_role_destroy() {
+    echo
 }
 
 load_balancer_create() {
@@ -96,23 +138,6 @@ load_balancer_destroy() {
     echo
 }
 
-service_definition_create() {
-    echo ------------- Create Service Definition
-
-    cp task-definition.to.replace.json task-definition.json
-
-    sed -i "s/REPLACE_ME_PROJECT_NAME/$PROJECT_NAME/g" task-definition.json
-    sed -i "s/REPLACE_ME_SG_ID/$FARGATE_CONTAINER_SECURITY_GROUP/g" task-definition.json
-    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_ONE/$PRIVATE_SUBNET_ONE/g" task-definition.json
-    sed -i "s/REPLACE_ME_PRIVATE_SUBNET_TWO/$PRIVATE_SUBNET_TWO/g" task-definition.json
-    sed -i "s,REPLACE_ME_NLB_TARGET_GROUP_ARN,$NLB_TARGET_GROUP_ARN,g" task-definition.json
-
-    set -x;
-    aws ecs $AWS_PROFILE register-task-definition --cli-input-json file://task-definition.json > ../outputs/webapi_ecs_task_definition.json
-    set +x;
-    echo
-}
-
 register_ecs_task_definition_create() {
     echo $LINE Register an ECS Task Definition
 
@@ -150,6 +175,7 @@ ecs_cluster_create() {
 }
 ecs_cluster_destroy() {
     echo $LINE Destroy Amazon ECS Cluster
+    ECS_CLUSTER_ARN=$(grep -A2 clusterArn ../outputs/webapi_ecs_cluster.json | grep clusterArn | grep -oP '"\K[^"\047]+(?=["\047])' | tail -1)
     set -x;
     aws ecs $AWS_PROFILE delete-cluster --cluster $PROJECT_NAME-Cluster > ../outputs/webapi_ecs_cluster.json
     set +x;
@@ -174,19 +200,27 @@ cloudwatch_logs_group_destroy() {
 
 create() {
     get_variables_from_cfn_core
+
     ecs_cluster_create
     cloudwatch_logs_group_create
     load_balancer_create
     register_ecs_task_definition_create
+    service_linked_role_create
+    ecs_service_create
+
     outputs
 }
 
 destroy() {
     get_variables_from_cfn_core
+
+    ecs_service_destroy
+    service_linked_role_destroy
     register_ecs_task_definition_destroy
     load_balancer_destroy
     cloudwatch_logs_group_destroy
     ecs_cluster_destroy
+    
     outputs
 }
 
