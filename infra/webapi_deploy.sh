@@ -5,6 +5,7 @@ local_variables() {
     echo $LINE Local Variables
     WEBAPI_PATH="$CURRENT_DIR/../../webapi"
     echo -e WEBAPI_PATH '\t' '\t''\t' '\t' $WEBAPI_PATH
+    echo
 }
 
 build_api() {	
