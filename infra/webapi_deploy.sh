@@ -1,6 +1,12 @@
 #!/usr/bin/env bash
 source helpers/variables.sh
 
+local_variables() {
+    echo $LINE Local Variables
+    WEBAPI_PATH="$CURRENT_DIR/../../webapi"
+    echo -e WEBAPI_PATH '\t' '\t''\t' '\t' $WEBAPI_PATH
+}
+
 build_api() {	
     echo $LINE Building webapi	
     set -x;	
@@ -32,6 +38,8 @@ push_docker_webapi_image() {
     set +x;	
 }
 
+
+local_variables
 cd ${WEBAPI_PATH} && \	
 build_api	
 run_local_docker_webapi	
