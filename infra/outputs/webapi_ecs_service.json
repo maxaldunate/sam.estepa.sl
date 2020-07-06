@@ -5,43 +5,43 @@
         "clusterArn": "arn:aws:ecs:eu-west-1:085693846076:cluster/sam-estepa-sl-dev-Cluster",
         "loadBalancers": [
             {
-                "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/4d6a29fdf6e0379a",
+                "targetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/76c28c277b73f341",
                 "containerName": "sam-estepa-sl-dev-Service",
                 "containerPort": 8080
             }
         ],
         "serviceRegistries": [],
-        "status": "DRAINING",
-        "desiredCount": 0,
-        "runningCount": 1,
+        "status": "ACTIVE",
+        "desiredCount": 1,
+        "runningCount": 0,
         "pendingCount": 0,
         "launchType": "FARGATE",
         "platformVersion": "LATEST",
-        "taskDefinition": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:12",
+        "taskDefinition": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:13",
         "deploymentConfiguration": {
             "maximumPercent": 200,
             "minimumHealthyPercent": 0
         },
         "deployments": [
             {
-                "id": "ecs-svc/8373681142892913147",
+                "id": "ecs-svc/0706738631558980549",
                 "status": "PRIMARY",
-                "taskDefinition": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:12",
-                "desiredCount": 0,
+                "taskDefinition": "arn:aws:ecs:eu-west-1:085693846076:task-definition/sam-estepa-sl-devservice:13",
+                "desiredCount": 1,
                 "pendingCount": 0,
-                "runningCount": 1,
-                "createdAt": "2020-06-16T22:45:23.730000+02:00",
-                "updatedAt": "2020-06-16T22:51:32.240000+02:00",
+                "runningCount": 0,
+                "createdAt": "2020-07-06T19:41:12.058000+02:00",
+                "updatedAt": "2020-07-06T19:41:12.058000+02:00",
                 "launchType": "FARGATE",
                 "platformVersion": "1.3.0",
                 "networkConfiguration": {
                     "awsvpcConfiguration": {
                         "subnets": [
-                            "subnet-014ed1084806ed8a6",
-                            "subnet-00b3a5d3820605b2f"
+                            "subnet-0c5e374831f0f14be",
+                            "subnet-0669a2d20b423202d"
                         ],
                         "securityGroups": [
-                            "sg-0a042a1d666f6a911"
+                            "sg-0613e02ee1429360b"
                         ],
                         "assignPublicIp": "DISABLED"
                     }
@@ -49,49 +49,18 @@
             }
         ],
         "roleArn": "arn:aws:iam::085693846076:role/aws-service-role/ecs.amazonaws.com/AWSServiceRoleForECS",
-        "events": [
-            {
-                "id": "f61942a5-4469-4fab-9c8a-1f6a76e1fe90",
-                "createdAt": "2020-06-16T22:52:12.488000+02:00",
-                "message": "(service sam-estepa-sl-dev-Service) has begun draining connections on 1 tasks."
-            },
-            {
-                "id": "5f890781-6a6c-4ceb-8233-393a80dd7739",
-                "createdAt": "2020-06-16T22:52:12.487000+02:00",
-                "message": "(service sam-estepa-sl-dev-Service) deregistered 1 targets in (target-group arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/4d6a29fdf6e0379a)"
-            },
-            {
-                "id": "4f911eb9-6914-433a-9b5e-b1d0f09dc848",
-                "createdAt": "2020-06-16T22:48:36.776000+02:00",
-                "message": "(service sam-estepa-sl-dev-Service) registered 1 targets in (target-group arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/4d6a29fdf6e0379a)"
-            },
-            {
-                "id": "485f7afb-afd1-472c-9270-8f632beacc5a",
-                "createdAt": "2020-06-16T22:48:04.825000+02:00",
-                "message": "(service sam-estepa-sl-dev-Service) has started 1 tasks: (task 7f776053-e06e-4be7-a089-4674c1bf92af)."
-            },
-            {
-                "id": "43151c6d-f6c6-4bc3-b534-3bf19d8b44f3",
-                "createdAt": "2020-06-16T22:46:49.945000+02:00",
-                "message": "(service sam-estepa-sl-dev-Service) has started 1 tasks: (task eb7a31d0-ec97-44a8-966c-0647fbc9a8e9)."
-            },
-            {
-                "id": "a97f6c43-516a-45b7-baad-8911a440afe8",
-                "createdAt": "2020-06-16T22:45:32.873000+02:00",
-                "message": "(service sam-estepa-sl-dev-Service) has started 1 tasks: (task 9cdb1c1a-5f26-4c57-bfc4-77ce27d69ef9)."
-            }
-        ],
-        "createdAt": "2020-06-16T22:45:23.730000+02:00",
+        "events": [],
+        "createdAt": "2020-07-06T19:41:12.058000+02:00",
         "placementConstraints": [],
         "placementStrategy": [],
         "networkConfiguration": {
             "awsvpcConfiguration": {
                 "subnets": [
-                    "subnet-014ed1084806ed8a6",
-                    "subnet-00b3a5d3820605b2f"
+                    "subnet-0c5e374831f0f14be",
+                    "subnet-0669a2d20b423202d"
                 ],
                 "securityGroups": [
-                    "sg-0a042a1d666f6a911"
+                    "sg-0613e02ee1429360b"
                 ],
                 "assignPublicIp": "DISABLED"
             }

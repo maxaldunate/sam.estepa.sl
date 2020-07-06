@@ -4,5 +4,5 @@
 
 export const environment = {
   production: true,
-  mysfitsApiUrl: 'http://sam-estepa-sl-dev-nlb-d0b1c0722dec9717.elb.eu-west-1.amazonaws.com/api'
+  mysfitsApiUrl: 'http://sam-estepa-sl-dev-nlb-4374d457b99f545c.elb.eu-west-1.amazonaws.com/api'
 };

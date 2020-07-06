@@ -1,10 +1,10 @@
 {
     "Stacks": [
         {
-            "StackId": "arn:aws:cloudformation:eu-west-1:085693846076:stack/sam-estepa-sl-dev-CoreStack/bba55a50-b011-11ea-a942-06d4f42323aa",
+            "StackId": "arn:aws:cloudformation:eu-west-1:085693846076:stack/sam-estepa-sl-dev-CoreStack/f295a6d0-bfae-11ea-bced-02bc3c3f62ee",
             "StackName": "sam-estepa-sl-dev-CoreStack",
             "Description": "This stack deploys the core network infrastructure and IAM resources to be used for a service hosted in Amazon ECS using AWS Fargate.",
-            "CreationTime": "2020-06-16T20:41:19.921000+00:00",
+            "CreationTime": "2020-07-06T17:34:30.519000+00:00",
             "RollbackConfiguration": {},
             "StackStatus": "CREATE_COMPLETE",
             "DisableRollback": false,
@@ -21,25 +21,25 @@
                 },
                 {
                     "OutputKey": "FargateContainerSecurityGroup",
-                    "OutputValue": "sg-0a042a1d666f6a911",
+                    "OutputValue": "sg-0613e02ee1429360b",
                     "Description": "A security group used to allow Fargate containers to receive traffic",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:FargateContainerSecurityGroup"
                 },
                 {
                     "OutputKey": "PublicSubnetOne",
-                    "OutputValue": "subnet-0a0ae1645f2e9625a",
+                    "OutputValue": "subnet-0005ebc7161936d71",
                     "Description": "Public subnet one",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:PublicSubnetOne"
                 },
                 {
                     "OutputKey": "ECSTaskRole",
-                    "OutputValue": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-1QWGONP5Q7QQ6",
+                    "OutputValue": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-ECSTaskRole-6D6J7OU1B7X3",
                     "Description": "The ARN of the ECS Task role",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:ECSTaskRole"
                 },
                 {
                     "OutputKey": "PrivateSubnetTwo",
-                    "OutputValue": "subnet-00b3a5d3820605b2f",
+                    "OutputValue": "subnet-0669a2d20b423202d",
                     "Description": "Private subnet two",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:PrivateSubnetTwo"
                 },
@@ -51,13 +51,13 @@
                 },
                 {
                     "OutputKey": "VPCId",
-                    "OutputValue": "vpc-0a4864e28ff307ccc",
+                    "OutputValue": "vpc-091884ff8fee3c344",
                     "Description": "The ID of the VPC that this stack is deployed in",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:VPCId"
                 },
                 {
                     "OutputKey": "PublicSubnetTwo",
-                    "OutputValue": "subnet-0be2f5580e1bc8cc1",
+                    "OutputValue": "subnet-0e3c6ace57477001d",
                     "Description": "Public subnet two",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:PublicSubnetTwo"
                 },
@@ -75,13 +75,13 @@
                 },
                 {
                     "OutputKey": "EcsServiceRole",
-                    "OutputValue": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-7EGIET95EHC9",
+                    "OutputValue": "arn:aws:iam::085693846076:role/sam-estepa-sl-dev-CoreStack-EcsServiceRole-GZVGEAF0EBVN",
                     "Description": "The ARN of the ECS Service role",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:EcsServiceRole"
                 },
                 {
                     "OutputKey": "PrivateSubnetOne",
-                    "OutputValue": "subnet-014ed1084806ed8a6",
+                    "OutputValue": "subnet-0c5e374831f0f14be",
                     "Description": "Private subnet one",
                     "ExportName": "sam-estepa-sl-dev-CoreStack:PrivateSubnetOne"
                 }

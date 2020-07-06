@@ -1,0 +1,88 @@
+{
+    "TableDescription": {
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "GoodEvil",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "LawChaos",
+                "AttributeType": "S"
+            },
+            {
+                "AttributeName": "MysfitId",
+                "AttributeType": "S"
+            }
+        ],
+        "TableName": "MysfitsTable",
+        "KeySchema": [
+            {
+                "AttributeName": "MysfitId",
+                "KeyType": "HASH"
+            }
+        ],
+        "TableStatus": "CREATING",
+        "CreationDateTime": "2020-07-06T20:18:23.003000+02:00",
+        "ProvisionedThroughput": {
+            "NumberOfDecreasesToday": 0,
+            "ReadCapacityUnits": 5,
+            "WriteCapacityUnits": 5
+        },
+        "TableSizeBytes": 0,
+        "ItemCount": 0,
+        "TableArn": "arn:aws:dynamodb:eu-west-1:085693846076:table/MysfitsTable",
+        "TableId": "8bcc52a4-3ece-44d6-8244-fc6b3701ab70",
+        "GlobalSecondaryIndexes": [
+            {
+                "IndexName": "GoodEvilIndex",
+                "KeySchema": [
+                    {
+                        "AttributeName": "GoodEvil",
+                        "KeyType": "HASH"
+                    },
+                    {
+                        "AttributeName": "MysfitId",
+                        "KeyType": "RANGE"
+                    }
+                ],
+                "Projection": {
+                    "ProjectionType": "ALL"
+                },
+                "IndexStatus": "CREATING",
+                "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0,
+                    "ReadCapacityUnits": 5,
+                    "WriteCapacityUnits": 5
+                },
+                "IndexSizeBytes": 0,
+                "ItemCount": 0,
+                "IndexArn": "arn:aws:dynamodb:eu-west-1:085693846076:table/MysfitsTable/index/GoodEvilIndex"
+            },
+            {
+                "IndexName": "LawChaosIndex",
+                "KeySchema": [
+                    {
+                        "AttributeName": "LawChaos",
+                        "KeyType": "HASH"
+                    },
+                    {
+                        "AttributeName": "MysfitId",
+                        "KeyType": "RANGE"
+                    }
+                ],
+                "Projection": {
+                    "ProjectionType": "ALL"
+                },
+                "IndexStatus": "CREATING",
+                "ProvisionedThroughput": {
+                    "NumberOfDecreasesToday": 0,
+                    "ReadCapacityUnits": 5,
+                    "WriteCapacityUnits": 5
+                },
+                "IndexSizeBytes": 0,
+                "ItemCount": 0,
+                "IndexArn": "arn:aws:dynamodb:eu-west-1:085693846076:table/MysfitsTable/index/LawChaosIndex"
+            }
+        ]
+    }
+}

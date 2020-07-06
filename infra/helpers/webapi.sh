@@ -167,13 +167,13 @@ register_ecs_task_definition_destroy() {
     set +x;
 
     # ToDo Max. Comprobar que esto funciona bien
-    TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
-    until [ $TASK_STATUS != "INACTIVE" ]; do
-        sleep 30
-        TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
-        echo Current task status ... $TASK_STATUS
-    done
-    echo Current task status ... $STACK_STATUS
+    # TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
+    # until [ $TASK_STATUS != "INACTIVE" ]; do
+    #     sleep 30
+    #     TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
+    #     echo Current task status ... $TASK_STATUS
+    # done
+    # echo Current task status ... $TASK_STATUS
     echo
 }
 
@@ -214,20 +214,48 @@ cloudwatch_logs_group_destroy() {
     echo $LINE Destroy CloudWatch Logs Group
     set -x;
     aws logs $AWS_PROFILE delete-log-group --log-group-name $PROJECT_NAME-logs
-
     set +x;
     echo
 }
 
+dynamo_create() {
+    echo $LINE Create & Populate DynamoDB Table
+    set -x;
+    aws dynamodb $AWS_PROFILE create-table --cli-input-json file://webapi-dynamodb-table.json  > ../outputs/webapi_dynamo_table.json
+    set +x;
+    TASK_STATUS=$(aws dynamodb $AWS_PROFILE describe-table --table-name MysfitsTable --query Table.TableStatus --output text)
+    echo Current task status ... $TASK_STATUS
+    until [ $TASK_STATUS == "ACTIVE" ]; do
+        sleep 10
+        TASK_STATUS=$(aws dynamodb $AWS_PROFILE describe-table --table-name MysfitsTable --query Table.TableStatus --output text)
+        echo Current task status ... $TASK_STATUS
+    done
+    echo Current task status ... $STACK_STATUS
+    set -x;
+
+    aws dynamodb $AWS_PROFILE batch-write-item --request-items file://webapi-dynamodb-populate.json  > ../outputs/webapi_dynamo_populate.json
+    set +x;
+    echo
+}
+dynamo_destroy() {
+    echo $LINE Destroy DynamoDB Table
+    set -x;
+    aws dynamodb delete-table $AWS_PROFILE --table-name MysfitsTable  > ../outputs/webapi_dynamo_table.json
+    set +x;
+    echo
+}
+
+
 create() {
     get_variables_from_cfn_core
 
-    ecs_cluster_create
-    cloudwatch_logs_group_create
-    load_balancer_create
-    register_ecs_task_definition_create
-    service_linked_role_create
-    ecs_service_create
+    # ecs_cluster_create
+    # cloudwatch_logs_group_create
+    # load_balancer_create
+    # register_ecs_task_definition_create
+    # service_linked_role_create
+    # ecs_service_create
+    dynamo_create
 
     outputs
 }
@@ -235,12 +263,13 @@ create() {
 destroy() {
     get_variables_from_cfn_core
 
-    ecs_service_destroy
-    service_linked_role_destroy
-    register_ecs_task_definition_destroy
-    load_balancer_destroy
-    cloudwatch_logs_group_destroy
-    ecs_cluster_destroy
+    dynamo_destroy
+    # ecs_service_destroy
+    # service_linked_role_destroy
+    # register_ecs_task_definition_destroy
+    # load_balancer_destroy
+    # cloudwatch_logs_group_destroy
+    # ecs_cluster_destroy
 
     outputs
 }
