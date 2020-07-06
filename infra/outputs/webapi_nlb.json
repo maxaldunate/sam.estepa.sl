@@ -9,7 +9,7 @@
             "Scheme": "internet-facing",
             "VpcId": "vpc-091884ff8fee3c344",
             "State": {
-                "Code": "provisioning"
+                "Code": "active"
             },
             "Type": "network",
             "AvailabilityZones": [

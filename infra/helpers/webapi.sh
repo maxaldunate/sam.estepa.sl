@@ -167,7 +167,8 @@ register_ecs_task_definition_destroy() {
     set +x;
 
     # ToDo Max. Comprobar que esto funciona bien
-    # TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
+    # TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --task $TASK_DEFINITION_ARN --query tasks[0].lastStatus --output text)
+    # echo Current task status ... $TASK_STATUS
     # until [ $TASK_STATUS != "INACTIVE" ]; do
     #     sleep 30
     #     TASK_STATUS=$(aws ecs $AWS_PROFILE describe-tasks --cluster $PROJECT_NAME-Cluster --query tasks[0].lastStatus --output text)
@@ -249,12 +250,12 @@ dynamo_destroy() {
 create() {
     get_variables_from_cfn_core
 
-    # ecs_cluster_create
-    # cloudwatch_logs_group_create
-    # load_balancer_create
-    # register_ecs_task_definition_create
-    # service_linked_role_create
-    # ecs_service_create
+    ecs_cluster_create
+    cloudwatch_logs_group_create
+    load_balancer_create
+    register_ecs_task_definition_create
+    service_linked_role_create
+    ecs_service_create
     dynamo_create
 
     outputs
@@ -264,12 +265,12 @@ destroy() {
     get_variables_from_cfn_core
 
     dynamo_destroy
-    # ecs_service_destroy
-    # service_linked_role_destroy
-    # register_ecs_task_definition_destroy
-    # load_balancer_destroy
-    # cloudwatch_logs_group_destroy
-    # ecs_cluster_destroy
+    ecs_service_destroy
+    service_linked_role_destroy
+    register_ecs_task_definition_destroy
+    load_balancer_destroy
+    cloudwatch_logs_group_destroy
+    ecs_cluster_destroy
 
     outputs
 }
