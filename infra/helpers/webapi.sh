@@ -220,7 +220,7 @@ cloudwatch_logs_group_destroy() {
 }
 
 dynamo_create() {
-    echo $LINE Create & Populate DynamoDB Table
+    echo $LINE Create + Populate DynamoDB Table
     set -x;
     aws dynamodb $AWS_PROFILE create-table --cli-input-json file://webapi-dynamodb-table.json  > ../outputs/webapi_dynamo_table.json
     set +x;

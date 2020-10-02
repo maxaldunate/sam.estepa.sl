@@ -1,11 +1,11 @@
 {
     "TargetGroups": [
         {
-            "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/76c28c277b73f341",
+            "TargetGroupArn": "arn:aws:elasticloadbalancing:eu-west-1:085693846076:targetgroup/sam-estepa-sl-dev-TargetGroup/cf4a10d780cc29c7",
             "TargetGroupName": "sam-estepa-sl-dev-TargetGroup",
             "Protocol": "TCP",
             "Port": 8080,
-            "VpcId": "vpc-091884ff8fee3c344",
+            "VpcId": "vpc-00e0368cb2cacde02",
             "HealthCheckProtocol": "HTTP",
             "HealthCheckPort": "traffic-port",
             "HealthCheckEnabled": true,

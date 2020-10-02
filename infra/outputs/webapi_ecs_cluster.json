@@ -2,7 +2,7 @@
     "cluster": {
         "clusterArn": "arn:aws:ecs:eu-west-1:085693846076:cluster/sam-estepa-sl-dev-Cluster",
         "clusterName": "sam-estepa-sl-dev-Cluster",
-        "status": "ACTIVE",
+        "status": "INACTIVE",
         "registeredContainerInstancesCount": 0,
         "runningTasksCount": 0,
         "pendingTasksCount": 0,
